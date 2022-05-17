@@ -1,17 +1,24 @@
 package com.franpradosdominguez.FitGymFran.model.DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import com.franpradosdominguez.FitGymFran.interfaces.interfaceDAO;
 import com.franpradosdominguez.FitGymFran.model.DataObject.ClientRutine;
+import com.franpradosdominguez.FitGymFran.model.DataObject.Cliente;
+import com.franpradosdominguez.FitGymFran.model.DataObject.Rutina;
 import com.franpradosdominguez.FitGymFran.utils.Connect;
 
-public class ClientRutineDAO implements interfaceDAO<ClientRutine, Integer>{
+public class ClientRutineDAO implements interfaceDAO<ClientRutine, Integer> {
+	
+	private ClienteDAO cdao = new ClienteDAO();
+	private RutinaDAO rdao = new RutinaDAO();
 
 	private Connection miConexion;
 	
@@ -30,31 +37,54 @@ public class ClientRutineDAO implements interfaceDAO<ClientRutine, Integer>{
 	@Override
 	public ClientRutine get(Integer id) {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Collection<ClientRutine> getAll() {
-		// TODO Auto-generated method stub
-		Collection<ClientRutine> cr = new ArrayList<>();
-		String consulta = "SELECT id_cliente, id_rutina FROM cliente_rutina";
+		ClientRutine cr = null;
+		String consulta = "SELECT id_cliente, id_rutina FROM cliente_rutina WHERE id_cliente = ?";
 		
-		Statement st;
 		try {
-			st = miConexion.createStatement();
-			ResultSet rs = st.executeQuery(consulta);
+			PreparedStatement ps = miConexion.prepareStatement(consulta);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			cr = new ClientRutine();
+			rs.next();
+			cr.setCliente(cdao.get(rs.getInt("id_cliente")));
+			Rutina r = new Rutina();
+			cr.setRutina(rdao.get(rs.getInt("id_rutina")));
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return cr;
+	}
+	
+	public List<ClientRutine> getAllRutineForClient(Cliente c) {
+		List<ClientRutine> listaRutina = new ArrayList<>();
+		String consulta = "SELECT c.id_cliente, cr.id_cliente, cr.id_rutina, r.id_rutina FROM cliente c, cliente_rutina cr, rutina r WHERE c.id_cliente = cr.id_cliente AND cr.id_rutina = r.id_rutina AND c.id_cliente = ?";
+		try {
+			PreparedStatement ps = miConexion.prepareStatement(consulta);
+			ps.setInt(1, c.getId());
+			ResultSet rs = ps.executeQuery();
+			ClientRutine cr = new ClientRutine();
 			while (rs.next()) {
-				ClientRutine aux = new ClientRutine();
-				aux.setCliente(null);
-				aux.setRutina(null);
-				cr.add(aux);
+				cr.setCliente(cdao.get(rs.getInt("id_cliente")));
+				Rutina r = new Rutina();
+				cr.setRutina(rdao.get(rs.getInt("id_rutina")));
+				listaRutina.add(cr);
 			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return cr;
+		
+		return listaRutina;
+	}
+
+	@Override
+	public Collection<ClientRutine> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

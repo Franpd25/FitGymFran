@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import com.franpradosdominguez.FitGymFran.model.DAO.ClienteDAO;
 import com.franpradosdominguez.FitGymFran.model.DAO.UserDAO;
+import com.franpradosdominguez.FitGymFran.utils.Dialog;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -33,13 +34,6 @@ public class LoginController {
 	@FXML
 	private Button sign;
 
-	// @FXML
-	/*
-	 * private void eventKey() {
-	 * 
-	 * }
-	 */
-
 	@FXML
 	private void eventAction(ActionEvent event) {
 		Object evt = event.getSource();
@@ -52,7 +46,7 @@ public class LoginController {
 
 				if (state != -1) {
 					if (state == 1) {
-						System.out.println("Datos correctos");
+						Dialog.showConfirm("Message", "Usuario y contraseña correctos", "");
 						try {
 							this.switchToPrimary(event);
 							cdao.getAll();
@@ -62,12 +56,12 @@ public class LoginController {
 						}
 
 					} else {
-						System.out.println("Error al iniciar sesión, datos de acceso incorrectos");
+						Dialog.showError("Message", "Error al iniciar sesión, datos de acceso incorrectos", "");
 					}
 				}
 
 			} else {
-				System.out.println("ERROR al iniciar sesión, datos de acceso incorrectos");
+				Dialog.showError("Message", "ERROR. Introduce usuario y contraseña", "");
 			}
 		}
 	}

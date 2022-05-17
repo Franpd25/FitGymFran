@@ -14,6 +14,9 @@ import com.franpradosdominguez.FitGymFran.model.DataObject.Cliente;
 import com.franpradosdominguez.FitGymFran.model.DataObject.Rutina;
 import com.franpradosdominguez.FitGymFran.utils.Connect;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer>{
 
 	private Connection miConexion;
@@ -23,6 +26,11 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 		this.miConexion = Connect.getConnect();
 	}
 
+	public ClienteDAO(String name) {
+		super(name);
+		this.miConexion = miConexion;
+	}
+	
 	public ClienteDAO(int id, String name, String email, String dni, int phone) {
 		super(id, name, email, dni, phone);
 		this.miConexion = miConexion;
@@ -91,7 +99,27 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 		
 		return c;
 	}
-
+	
+	public List<Cliente> getClienteByName() {
+		List<Cliente> misClientes = new ArrayList<>();
+		String consulta = "SELECT nombre FROM cliente";
+		
+		Statement st;
+		try {
+			st = miConexion.createStatement();
+			ResultSet rs = st.executeQuery(consulta);
+			while (rs.next()) {
+				Cliente aux = new Cliente();
+				aux.setName(rs.getString("nombre"));
+				misClientes.add(aux);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return misClientes;
+	}
+	
 	@Override
 	public Collection<Cliente> getAll() {
 		// TODO Auto-generated method stub

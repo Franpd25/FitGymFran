@@ -11,9 +11,16 @@ public class Cliente {
 	public Cliente() {
 		this(-1, "", "", "", -1);
 	}
-	
+
+	public Cliente(String name) {
+		this.id = -1;
+		this.name = name;
+		this.email = "";
+		this.dni = "";
+		this.phone = -1;
+	}
+
 	public Cliente(int id, String name, String email, String dni, int phone) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -67,9 +74,12 @@ public class Cliente {
 	public void setPhone(int phone) {
 		this.phone = phone;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", name=" + name + ", email=" + email + ", dni=" + dni + ", phone=" + phone + "]";
+		return "id=" + id + "\n"
+				+ " name=" + name + "\n"
+				+ " email=" + email + ""
+				+ " dni=" + dni + ", phone=" + phone + "]";
 	}
 }

@@ -1,16 +1,18 @@
 package com.franpradosdominguez.FitGymFran;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Collection;
 
+import com.franpradosdominguez.FitGymFran.model.DAO.ClientRutineDAO;
 import com.franpradosdominguez.FitGymFran.model.DAO.ClienteDAO;
 import com.franpradosdominguez.FitGymFran.model.DAO.RutinaDAO;
+import com.franpradosdominguez.FitGymFran.model.DataObject.ClientConverter;
+import com.franpradosdominguez.FitGymFran.model.DataObject.ClientRutine;
 import com.franpradosdominguez.FitGymFran.model.DataObject.Cliente;
-import com.franpradosdominguez.FitGymFran.model.DataObject.ExercisesTypes;
+import com.franpradosdominguez.FitGymFran.model.DataObject.Rutina;
 
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,96 +21,29 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 
 public class SecondaryController {
-	
+	private Cliente c = new Cliente();
 	private ClienteDAO cdao = new ClienteDAO();
 	private RutinaDAO rdao = new RutinaDAO();
-	private List<Cliente> todosMisClientes;
+	private ClientRutineDAO crdao = new ClientRutineDAO();
 	
 	@FXML
-	private TableView<Cliente> misClientes;
+	private ChoiceBox<Cliente> nombClientes;
 	@FXML
-	private TableColumn<Cliente, String> nombre;
-	@FXML
-    private ChoiceBox<String> tipoLunes;
-	@FXML
-    private ChoiceBox<String> tipoMartes;
-	@FXML
-    private ChoiceBox<String> tipoMiercoles;
-	@FXML
-    private ChoiceBox<String> tipoJueves;
-	@FXML
-    private ChoiceBox<String> tipoViernes;
-	@FXML
-	private CheckBox si;
-	@FXML
-	private CheckBox no;
-	@FXML
-	private DatePicker fecha;
-	
+	private TextArea texto;
 	@FXML
 	private Button back;
 	@FXML
-	private Button save;
-	@FXML
-	private Button go_out;
-
-	@FXML
-	protected void initialize() {
-		// TODO Auto-generated method stub
-		this.configuraTabla();
-		todosMisClientes = (List<Cliente>) cdao.getAll();
-		misClientes.setItems(FXCollections.observableArrayList(todosMisClientes));
-		
-		this.rollOutRoutineExercises();
-	}
-
-	private void configuraTabla() {
-		nombre.setCellValueFactory(client -> {
-			SimpleStringProperty ssp = new SimpleStringProperty();
-			ssp.setValue(client.getValue().getName());
-			return ssp;
-		});
-	}
-	
-	public void rollOutRoutineExercises() {
-		Cliente c = this.misClientes.getSelectionModel().getSelectedItem();
-		
-		if (tipoLunes != null) {
-			for (ExercisesTypes et : ExercisesTypes.values()) {
-				tipoLunes.getItems().add(et.getType());				
-			}
-		}
-		if (tipoMartes != null) {
-			for (ExercisesTypes et : ExercisesTypes.values()) {
-				tipoMartes.getItems().add(et.getType());				
-			}
-		}
-		if (tipoMiercoles != null) {
-			for (ExercisesTypes et : ExercisesTypes.values()) {
-				tipoMiercoles.getItems().add(et.getType());				
-			}
-		}
-		if (tipoJueves != null) {
-			for (ExercisesTypes et : ExercisesTypes.values()) {
-				tipoJueves.getItems().add(et.getType());				
-			}
-		}
-		if (tipoViernes != null) {
-			for (ExercisesTypes et : ExercisesTypes.values()) {
-				tipoViernes.getItems().add(et.getType());				
-			}
-		}
-	}
+	private Button salir;
 	
 	@FXML
 	public void switchToPrimary(ActionEvent event) throws IOException {
@@ -135,4 +70,33 @@ public class SecondaryController {
 			}
 		});
 	}
+	
+	@FXML
+	public void go_out() {
+		System.exit(0);
+	}
+	
+	@FXML
+	public void initialize() {
+		if (c != null) {
+			nombClientes.getSelectionModel().getSelectedItem();
+			nombClientes.getItems().addAll(cdao.getClienteByName());
+			nombClientes.setConverter(new ClientConverter());
+			
+		}else if (nombClientes != null) {
+			nombClientes.getSelectionModel().getSelectedItem();
+			texto.setText("Holaaaa");
+		}
+		
+	}
+	
+	/*private void comboboxEvents(ActionEvent e) {
+		this.initialize();
+		Object evt = e.getSource();
+		if (evt.equals(nombClientes)) {
+			texto.setText(nombClientes.getSelectionModel().getSelectedItem().toString());
+			System.out.println(crdao.getAllRutineForClient(c));
+			
+		}
+	}*/
 }

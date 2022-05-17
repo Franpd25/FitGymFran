@@ -32,7 +32,8 @@ public class ClientRutine {
 
 	@Override
 	public String toString() {
-		return "ClientRutine [cliente=" + cliente + ", rutina=" + rutina + "]";
+		return "Cliente --> " + cliente + "\n"
+				+ " Rutina --> " + rutina + "]";
 	}
 	
 	

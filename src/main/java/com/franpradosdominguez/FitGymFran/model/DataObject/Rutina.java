@@ -39,6 +39,7 @@ public class Rutina {
 
 	@Override
 	public String toString() {
-		return "Rutina [id_rut=" + id_rut + ", type=" + type + "]";
+		return "id_rut=" + id_rut + "\n"
+				+ " type=" + type;
 	}
 }
