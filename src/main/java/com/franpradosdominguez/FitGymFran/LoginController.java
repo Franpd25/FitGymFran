@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import java.io.IOException;
 
 import com.franpradosdominguez.FitGymFran.model.DAO.ClienteDAO;
-import com.franpradosdominguez.FitGymFran.model.DAO.UserDAO;
 import com.franpradosdominguez.FitGymFran.utils.Dialog;
 
 import javafx.application.Platform;
@@ -19,12 +18,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 
 public class LoginController {
-
-	private UserDAO udao = new UserDAO();
+	
 	private ClienteDAO cdao = new ClienteDAO();
 
 	@FXML
@@ -34,6 +31,10 @@ public class LoginController {
 	@FXML
 	private Button sign;
 
+	/**
+	 * Este método sirve para logearse como usuario administrador
+	 * @param event
+	 */
 	@FXML
 	private void eventAction(ActionEvent event) {
 		Object evt = event.getSource();
@@ -66,6 +67,12 @@ public class LoginController {
 		}
 	}
 
+	/**
+	 * Este método sirve para cambiarse de ventana, en nuestro caso
+	 * a la ventana principal
+	 * @param event 
+	 * @throws IOException excepción que controla este método
+	 */
 	private void switchToPrimary(ActionEvent event) throws IOException {
 
 		((Node) (event.getSource())).getScene().getWindow().hide();

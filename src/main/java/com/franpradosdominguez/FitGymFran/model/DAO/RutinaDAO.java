@@ -28,6 +28,11 @@ public class RutinaDAO implements interfaceDAO<Rutina, Integer> {
 		return false;
 	}
 
+	/**
+	 * Este método obtiene a la rutina por su id
+	 * @param id el valor del campo por el que obtiene
+	 * @return la rutina obtenido o null si no existe.
+	 */
 	@Override
 	public Rutina get(Integer id) {
 		// TODO Auto-generated method stub
@@ -50,6 +55,10 @@ public class RutinaDAO implements interfaceDAO<Rutina, Integer> {
 		return r;
 	}
 
+	/**
+	 * Este método nos sive para obtener una collección de todas las rutinas por sus campos.
+	 * @return la rutina de la lista obtenida por sus campos.
+	 */
 	@Override
 	public Collection<Rutina> getAll() {
 		// TODO Auto-generated method stub

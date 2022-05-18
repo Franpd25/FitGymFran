@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.franpradosdominguez.FitGymFran.model.DAO.ClienteDAO;
 import com.franpradosdominguez.FitGymFran.model.DataObject.Cliente;
+import com.franpradosdominguez.FitGymFran.utils.Dialog;
 
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
@@ -55,6 +56,12 @@ public class PrimaryController {
 	@FXML
 	private Button update;
 
+	/**
+	 * Este método nos sirve para cambiarnos de ventana, que en este caso
+	 * nos dirigimos a la vista secundaria.
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	public void switchToSecundary(ActionEvent event) throws IOException {
 		Object eventSource = event.getSource();
@@ -156,7 +163,7 @@ public class PrimaryController {
 		Cliente c = this.misClientes.getSelectionModel().getSelectedItem();
 		
 		if (c == null) {
-			System.out.println("ERROR. Debes seleccionar un cliente para editarlo...");
+			Dialog.showError("Message", "ERROR. Debes seleccionar un cliente para editarlo", "");
 			
 		}else {
 			try {
@@ -192,7 +199,7 @@ public class PrimaryController {
 		Cliente c = this.misClientes.getSelectionModel().getSelectedItem();
 
 		if (c == null) {
-			System.out.println("Error. Debes seleccionar un cliente");
+			Dialog.showError("Message", "Error. Debes seleccionar un cliente para borrarlo", "");
 
 		} else {
 			this.cdao.delete(c);

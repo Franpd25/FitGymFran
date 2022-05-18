@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import com.franpradosdominguez.FitGymFran.model.DataObject.User;
 import com.franpradosdominguez.FitGymFran.utils.Connect;
 
+// Esta clase no nos sirve, a no ser que sirva para la conexión a la BBDD
 public class UserDAO {
 
 	private Connection miConexion;

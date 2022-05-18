@@ -34,6 +34,11 @@ public class ClientRutineDAO implements interfaceDAO<ClientRutine, Integer> {
 		return false;
 	}
 
+	/**
+	 * Este método obtiene al cliente y rutina por su id
+	 * @param id el valor del campo por el que obtiene
+	 * @return el cliente y la rutina obtenido o null si no existe.
+	 */
 	@Override
 	public ClientRutine get(Integer id) {
 		// TODO Auto-generated method stub
@@ -58,6 +63,11 @@ public class ClientRutineDAO implements interfaceDAO<ClientRutine, Integer> {
 		return cr;
 	}
 	
+	/**
+	 * Este método nos sirve para obtener una lista de las rutinas de cada cliente
+	 * @param c cliente que se obtiene para saber su rutina
+	 * @return una lista de rutinas que tiene asignado a ese cliente.
+	 */
 	public List<Rutina> getAllRutineForClient(Cliente c) {
 		
 		List<Rutina> listaRutina = new ArrayList<>();
@@ -99,6 +109,4 @@ public class ClientRutineDAO implements interfaceDAO<ClientRutine, Integer> {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	
 }

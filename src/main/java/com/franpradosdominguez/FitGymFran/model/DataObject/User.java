@@ -2,6 +2,11 @@ package com.franpradosdominguez.FitGymFran.model.DataObject;
 
 import com.franpradosdominguez.FitGymFran.model.DAO.UserDAO;
 
+/**
+ * Esta clase es la del usuario administrador de nuestra app.
+ * @author franp
+ *
+ */
 public class User extends UserDAO {
 
 	private String nickname;

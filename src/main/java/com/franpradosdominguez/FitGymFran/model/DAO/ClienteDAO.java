@@ -17,7 +17,7 @@ import com.franpradosdominguez.FitGymFran.utils.Connect;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer>{
+public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer> {
 
 	private Connection miConexion;
 	
@@ -48,6 +48,11 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 		this.phone = c.getPhone();
 	}
 	
+	/**
+	 * Este método nos sirve para insertar un cliente con todos sus campos.
+	 * @param c: el cliente a insertar.
+	 * @return true si el cliente se ha insertado y false si no se ha insertado correctamente.
+	 */
 	@Override
 	public boolean insert(Cliente c) {
 		// TODO Auto-generated method stub
@@ -71,6 +76,11 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 		return addC;
 	}
 
+	/**
+	 * Este método obtiene al cliente por su id
+	 * @param id el valor del campo por el que obtiene
+	 * @return el cliente obtenido o null si no existe.
+	 */
 	@Override
 	public Cliente get(Integer id) {
 		// TODO Auto-generated method stub
@@ -100,6 +110,10 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 		return c;
 	}
 	
+	/**
+	 * Este método nos sirve para mostrar todos los <-- terminar
+	 * @return
+	 */
 	public List<Cliente> getClienteByName() {
 		List<Cliente> misClientes = new ArrayList<>();
 		String consulta = "SELECT nombre FROM cliente";
@@ -120,6 +134,10 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 		return misClientes;
 	}
 	
+	/**
+	 * Este método nos sive para obtener una collección de todos los clientes por sus campos.
+	 * @return el cliente de la lista obtenida por sus campos.
+	 */
 	@Override
 	public Collection<Cliente> getAll() {
 		// TODO Auto-generated method stub
@@ -150,6 +168,11 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 		return c;
 	}
 
+	/**
+	 * Este método nos sirve para actualizar un cliente por algunos campos de su tabla
+	 * @param c es el cliente que se recibe para actualizarlo.
+	 * @return la posición del cliente.
+	 */
 	@Override
 	public int update(Cliente c) {
 		// TODO Auto-generated method stub
@@ -173,6 +196,11 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 		return up;
 	}
 
+	/**
+	 * Este método nos sirve para eliminar un cliente de la tabla
+	 * @param c es el cliente que seleccionamos para el borrado.
+	 * @return -1 si no existe.
+	 */
 	@Override
 	public int delete(Cliente c) {
 		// TODO Auto-generated method stub
@@ -190,5 +218,5 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 		}
 		return d;
 	}
-	
+
 }
