@@ -41,7 +41,7 @@ public class RutinaDAO implements interfaceDAO<Rutina, Integer> {
 			r = new Rutina();
 			rs.next();
 			r.setId_rut(rs.getInt("id_rutina"));
-			r.setType(rs.getString("nombreRutina"));
+			r.setNombreRutina(rs.getString("nombreRutina"));
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -63,7 +63,7 @@ public class RutinaDAO implements interfaceDAO<Rutina, Integer> {
 			while (rs.next()) {
 				Rutina aux = new Rutina();
 				aux.setId_rut(rs.getInt("id_rutina"));
-				aux.setType(rs.getString("nombreRutina"));
+				aux.setNombreRutina(rs.getString("nombreRutina"));
 				r.add(aux);
 					
 			}

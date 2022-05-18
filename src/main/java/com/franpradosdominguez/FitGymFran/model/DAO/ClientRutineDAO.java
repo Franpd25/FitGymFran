@@ -58,19 +58,20 @@ public class ClientRutineDAO implements interfaceDAO<ClientRutine, Integer> {
 		return cr;
 	}
 	
-	public List<ClientRutine> getAllRutineForClient(Cliente c) {
-		List<ClientRutine> listaRutina = new ArrayList<>();
-		String consulta = "SELECT c.id_cliente, cr.id_cliente, cr.id_rutina, r.id_rutina FROM cliente c, cliente_rutina cr, rutina r WHERE c.id_cliente = cr.id_cliente AND cr.id_rutina = r.id_rutina AND c.id_cliente = ?";
+	public List<Rutina> getAllRutineForClient(Cliente c) {
+		
+		List<Rutina> listaRutina = new ArrayList<>();
+		String consulta = "SELECT r.id_rutina, r.nombreRutina FROM cliente c, cliente_rutina cr, rutina r WHERE c.id_cliente = cr.id_cliente AND cr.id_rutina = r.id_rutina AND c.id_cliente = ?";
 		try {
 			PreparedStatement ps = miConexion.prepareStatement(consulta);
 			ps.setInt(1, c.getId());
 			ResultSet rs = ps.executeQuery();
-			ClientRutine cr = new ClientRutine();
+			
 			while (rs.next()) {
-				cr.setCliente(cdao.get(rs.getInt("id_cliente")));
 				Rutina r = new Rutina();
-				cr.setRutina(rdao.get(rs.getInt("id_rutina")));
-				listaRutina.add(cr);
+				r.setId_rut(rs.getInt("id_rutina"));
+				r.setNombreRutina(rs.getString("nombreRutina"));
+				listaRutina.add(r);
 			}
 			
 		} catch (SQLException e) {

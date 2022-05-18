@@ -19,9 +19,10 @@
             <Font name="Calibri Bold" size="13.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="nombClientes" layoutX="51.0" layoutY="105.0" onDragDetected="#initialize" prefWidth="150.0" />
-      <TextArea fx:id="texto" layoutX="245.0" layoutY="105.0" prefHeight="200.0" prefWidth="322.0" />
+      <ChoiceBox fx:id="nombClientes" layoutX="51.0" layoutY="105.0" prefWidth="150.0" />
+      <TextArea fx:id="texto" layoutX="245.0" layoutY="105.0" prefHeight="200.0" prefWidth="301.0" />
       <Button fx:id="back" layoutX="14.0" layoutY="367.0" mnemonicParsing="false" onAction="#switchToPrimary" text="Volver" />
       <Button fx:id="salir" layoutX="547.0" layoutY="367.0" mnemonicParsing="false" onAction="#go_out" text="Salir" />
+      <Button fx:id="showRutine" layoutX="80.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleBtnShowRutine" text="Mostrar Rutina" />
    </children>
 </AnchorPane>

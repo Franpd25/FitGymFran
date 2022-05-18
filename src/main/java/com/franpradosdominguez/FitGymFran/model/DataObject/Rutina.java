@@ -5,20 +5,20 @@ public class Rutina {
 	public static ExercisesTypes ejerTypes;
 	
 	protected int id_rut;
-	protected String type;
+	protected String nombreRutina;
 
 	public Rutina() {
 		this.id_rut = -1;
-		this.type = ExercisesTypes.PECHO.getType();
-		this.type = ExercisesTypes.ESPALDA.getType();
-		this.type = ExercisesTypes.PIERNAS.getType();
-		this.type = ExercisesTypes.HOMBROS.getType();
-		this.type = ExercisesTypes.BRAZOS.getType();
+		this.nombreRutina = ExercisesTypes.PECHO.getType();
+		this.nombreRutina = ExercisesTypes.ESPALDA.getType();
+		this.nombreRutina = ExercisesTypes.PIERNAS.getType();
+		this.nombreRutina = ExercisesTypes.HOMBROS.getType();
+		this.nombreRutina = ExercisesTypes.BRAZOS.getType();
 	}
 
 	public Rutina(int id_rut, String type) {
 		this.id_rut = id_rut;
-		this.type = type;
+		this.nombreRutina = type;
 	}
 
 	public int getId_rut() {
@@ -29,17 +29,16 @@ public class Rutina {
 		this.id_rut = id_rut;
 	}
 
-	public String getType() {
-		return type;
+	public String getNombreRutina() {
+		return nombreRutina;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setNombreRutina(String type) {
+		this.nombreRutina = type;
 	}
 
 	@Override
 	public String toString() {
-		return "id_rut=" + id_rut + "\n"
-				+ " type=" + type;
+		return "id_rut = " + id_rut + ", nombreRutina = " + nombreRutina + "\n";
 	}
 }
