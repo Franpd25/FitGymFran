@@ -52,6 +52,8 @@ public class PrimaryController {
 	private Button btdelete;
 	@FXML
 	private Button btsala;
+	@FXML
+	private Button update;
 
 	@FXML
 	public void switchToSecundary(ActionEvent event) throws IOException {
@@ -85,7 +87,7 @@ public class PrimaryController {
 		this.configuraTabla();
 		todosMisClientes = (List<Cliente>) cdao.getAll();
 		misClientes.setItems(FXCollections.observableArrayList(todosMisClientes));
-		//misClientes.refresh();
+		misClientes.refresh();
 	}
 
 	private void configuraTabla() {
@@ -139,7 +141,7 @@ public class PrimaryController {
 			Cliente c = acc.getCliente();
 			if (c != null) {
 				this.todosMisClientes.add(c);
-				this.misClientes.refresh();
+				misClientes.refresh();
 			}
 
 		} catch (IOException e) {
@@ -194,7 +196,11 @@ public class PrimaryController {
 
 		} else {
 			this.cdao.delete(c);
-			this.misClientes.refresh();
+			misClientes.refresh();
 		}
+	}
+	@FXML
+	private void Refresh() {
+		initialize();
 	}
 }

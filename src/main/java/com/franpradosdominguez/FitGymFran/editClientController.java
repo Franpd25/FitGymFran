@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.franpradosdominguez.FitGymFran.model.DAO.ClienteDAO;
 import com.franpradosdominguez.FitGymFran.model.DataObject.Cliente;
+import com.franpradosdominguez.FitGymFran.utils.Dialog;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -64,6 +65,7 @@ public class editClientController {
 			this.cliente.setDni(dni_c);
 			this.cliente.setPhone(telefono);
 			cdao.update(cliente);
+			Dialog.showConfirm("Message", "Cliente correctamente editado", "");
 		}
 
 		Stage stage = (Stage) this.save.getScene().getWindow();

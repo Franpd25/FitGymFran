@@ -30,7 +30,6 @@ public class SecondaryController {
 	
 	private Cliente c = new Cliente();
 	private ClienteDAO cdao = new ClienteDAO();
-	//private RutinaDAO rdao = new RutinaDAO();
 	private ClientRutineDAO crdao = new ClientRutineDAO();
 
 	@FXML
@@ -82,21 +81,15 @@ public class SecondaryController {
 		for (Cliente cliente : c) {
 			nombClientes.getItems().add(cliente);
 		}
-		//nombClientes.getItems().addAll(c.g);
 		nombClientes.setConverter(new ClientConverter());
 		
 	}
 	
 	@FXML
 	public void handleBtnShowRutine() {
-	//	texto.appendText(nombClientes.getSelectionModel().getSelectedItem()   getSelectedIndex() + "\n");
 		c = nombClientes.getSelectionModel().getSelectedItem();
 		List<Rutina> rutinas = crdao.getAllRutineForClient(c);
-		/*for (Rutina r : rutinas) {
-			System.out.println(r);
-		}*/
 		texto.setText(rutinas.toString());
-
 	}
 	
 }

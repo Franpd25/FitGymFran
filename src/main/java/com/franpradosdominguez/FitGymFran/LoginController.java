@@ -40,25 +40,25 @@ public class LoginController {
 		if (evt.equals(sign)) {
 			if (!nickname.getText().isEmpty() && !password.getText().isEmpty()) {
 
-				String user = nickname.getText();
-				String pwd = password.getText();
-				int state = udao.loginUser(user, pwd);
+				//String user = nickname.getText();
+				//String pwd = password.getText();
+				//int state = udao.loginUser(user, pwd);
 
-				if (state != -1) {
-					if (state == 1) {
-						Dialog.showConfirm("Message", "Usuario y contraseña correctos", "");
-						try {
-							this.switchToPrimary(event);
-							cdao.getAll();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
-					} else {
-						Dialog.showError("Message", "Error al iniciar sesión, datos de acceso incorrectos", "");
+				if (nickname.getText().equals("Admin") && password.getText().equals("1234")) {
+					Dialog.showConfirm("Message", "Usuario y contraseña correctos", "");
+					
+					try {
+						this.switchToPrimary(event);
+						cdao.getAll();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
+
+				} else {
+					Dialog.showError("Message", "Error al iniciar sesión, datos de acceso incorrectos", "");
 				}
+				
 
 			} else {
 				Dialog.showError("Message", "ERROR. Introduce usuario y contraseña", "");

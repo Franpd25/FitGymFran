@@ -4,7 +4,9 @@ import java.io.IOException;
 
 import com.franpradosdominguez.FitGymFran.model.DAO.ClienteDAO;
 import com.franpradosdominguez.FitGymFran.model.DataObject.Cliente;
+import com.franpradosdominguez.FitGymFran.utils.Dialog;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -37,15 +39,16 @@ public class addClientController {
 
 	@FXML
 	private void addCli() throws IOException {
-
+		
 		int id = Integer.parseInt(id_c.getText());
 		String nombre = name.getText();
 		String em = email.getText();
 		String dni_c = dni.getText();
 		int telefono = Integer.parseInt(phone.getText());
-
+		
 		cliente = new Cliente(id, nombre, em, dni_c, telefono);
 		cdao.insert(cliente);
+		Dialog.showConfirm("Message", "Cliente insertado correctamente", "");
 		
 		Stage stage = (Stage) this.addClient.getScene().getWindow();
 		stage.close();
