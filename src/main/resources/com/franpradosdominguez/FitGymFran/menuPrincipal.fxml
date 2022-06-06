@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="219.0" prefWidth="501.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.franpradosdominguez.FitGymFran.MenuPrincipal">
+   <children>
+      <Button fx:id="client" layoutX="98.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToButtonClients" prefHeight="34.0" prefWidth="79.0" text="CLIENTES" />
+      <Button fx:id="routine" layoutX="337.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToButtonRoutine" prefHeight="34.0" prefWidth="79.0" text="RUTINAS" />
+      <ImageView fitHeight="99.0" fitWidth="202.0" layoutX="47.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Imagenes/cliente-icono-genero.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="99.0" fitWidth="157.0" layoutX="301.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Imagenes/Icono%20Rutina.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

@@ -1,46 +1,52 @@
 package com.franpradosdominguez.FitGymFran.model.DataObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cliente {
 
-	protected int id;
+	protected int idCliente;
 	protected String name;
 	protected String email;
 	protected String dni;
-	protected int phone;
+	protected String phone;
+	protected List<Rutina> misRutinas;
 
 	public Cliente() {
-		this(-1, "", "", "", -1);
+		this(-1, "", "", "", "", new ArrayList<>());
+	}
+	
+	public Cliente(int id, String name, String email, String dni, String phone, List<Rutina> misRutinas) {
+		super();
+		this.idCliente = id;
+		this.name = name;
+		this.email = email;
+		this.dni = dni;
+		this.phone = phone;
+		this.misRutinas = misRutinas;
+	}
+	
+	public Cliente(String name, String email, String dni, String phone) {
+		this.name = name;
+		this.email = email;
+		this.dni = dni;
+		this.phone = phone;
 	}
 
 	public Cliente(String name) {
-		this.id = -1;
+		this.idCliente = -1;
 		this.name = name;
 		this.email = "";
 		this.dni = "";
-		this.phone = -1;
+		this.phone = "";
 	}
 
-	public Cliente(int id, String name, String email, String dni, int phone) {
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.dni = dni;
-		this.phone = phone;
+	public int getIdCliente() {
+		return idCliente;
 	}
 
-	public Cliente(String name, String email, String dni, int phone) {
-		this.name = name;
-		this.email = email;
-		this.dni = dni;
-		this.phone = phone;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
 	}
 
 	public String getName() {
@@ -67,19 +73,31 @@ public class Cliente {
 		this.dni = dni;
 	}
 
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
+
+	public List<Rutina> getMisRutinas() {
+		return misRutinas;
+	}
+
+	public void setMisRutinas(List<Rutina> misRutinas) {
+		this.misRutinas = misRutinas;
+	}
+
 	@Override
 	public String toString() {
-		return "id=" + id + "\n"
-				+ " name=" + name + "\n"
-				+ " email=" + email + ""
-				+ " dni=" + dni + ", phone=" + phone + "]";
+		return "Identificador Cliente = " + idCliente + "\n" +
+			   "Nombre Cliente = " + name + "\n" +
+			   "Correo Electrónico = " + email + "\n" +
+			   "DNI = " + dni + "\n" +
+			   "Teléfono = " + phone + "\n" +
+			   "Lista de mi Rutina = " + misRutinas;
 	}
+	
+	
 }

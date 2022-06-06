@@ -83,11 +83,11 @@ public class LoginController {
 		Stage stage = (Stage) w;
 		stage.hide();*/
 
-		Parent root = FXMLLoader.load(getClass().getResource("primary.fxml"));
-		Scene scene = new Scene(root, 600, 400);
+		Parent root = FXMLLoader.load(getClass().getResource("menuPrincipal.fxml"));
+		Scene scene = new Scene(root, 501, 219);
 		Stage newStage = new Stage();
 		newStage.setScene(scene);
-		newStage.setTitle("Clientes");
+		newStage.setTitle("Elegir Cliente - Rutina");
 		newStage.show();
 
 		newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

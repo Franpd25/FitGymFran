@@ -44,7 +44,7 @@ public class PrimaryController {
 	@FXML
 	private TableColumn<Cliente, String> dni;
 	@FXML
-	private TableColumn<Cliente, Integer> telefono;
+	private TableColumn<Cliente, String> telefono;
 	@FXML
 	private Button btadd;
 	@FXML
@@ -55,6 +55,8 @@ public class PrimaryController {
 	private Button btsala;
 	@FXML
 	private Button update;
+	@FXML
+	private Button back;
 
 	/**
 	 * Este método nos sirve para cambiarnos de ventana, que en este caso
@@ -101,7 +103,7 @@ public class PrimaryController {
 		// TODO Auto-generated method stub
 		id.setCellValueFactory(client -> {
 			ObservableValue<Integer> ov = new SimpleIntegerProperty().asObject();
-			((ObjectProperty<Integer>) ov).setValue(client.getValue().getId());
+			((ObjectProperty<Integer>) ov).setValue(client.getValue().getIdCliente());
 			return ov;
 		});
 
@@ -124,10 +126,49 @@ public class PrimaryController {
 		});
 
 		telefono.setCellValueFactory(client -> {
-			ObservableValue<Integer> ov = new SimpleIntegerProperty().asObject();
-			((ObjectProperty<Integer>) ov).setValue(client.getValue().getPhone());
-			return ov;
+			SimpleStringProperty ssp = new SimpleStringProperty();
+			ssp.setValue(client.getValue().getPhone());
+			return ssp;
 		});
+	}
+	
+	@FXML
+	private void selectClient() {
+		Cliente c = this.misClientes.getSelectionModel().getSelectedItem();
+		if (c == null) {
+			Dialog.showError("Message", "ERROR. Selecciona un cliente", "Mostrará la información en la siguiente ventana");
+			
+		}else {
+			
+			try {
+				
+				FXMLLoader loader1 = new FXMLLoader(getClass().getResource("secondary.fxml"));
+				Parent r = loader1.load();
+				SecondaryController sc = loader1.getController();
+				sc.initAttributes(c);
+				Scene scene = new Scene(r, 600, 400);
+				Stage newStage = new Stage();
+				newStage.setScene(scene);
+				newStage.setTitle("Sala");
+				newStage.show();
+				
+				newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+					@Override
+					public void handle(WindowEvent event) {
+						// TODO Auto-generated method stub
+						Platform.exit();
+					}
+				});
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			Stage stage = (Stage) this.btsala.getScene().getWindow();
+			stage.close();
+		}
 	}
 
 	@FXML
@@ -163,7 +204,7 @@ public class PrimaryController {
 		Cliente c = this.misClientes.getSelectionModel().getSelectedItem();
 		
 		if (c == null) {
-			Dialog.showError("Message", "ERROR. Debes seleccionar un cliente para editarlo", "");
+			Dialog.showError("Message", "ERROR. Selecciona un cliente", "Seleccionando un cliente podrás editarlo");
 			
 		}else {
 			try {
@@ -199,13 +240,47 @@ public class PrimaryController {
 		Cliente c = this.misClientes.getSelectionModel().getSelectedItem();
 
 		if (c == null) {
-			Dialog.showError("Message", "Error. Debes seleccionar un cliente para borrarlo", "");
+			Dialog.showError("Message", "Error. Selecciona un cliente", "Seleccionando un cliente podrás borrarlo");
 
 		} else {
+			Dialog.showConfirm("Message", "¿Estas seguro de querer borrar este cliente?", "");
 			this.cdao.delete(c);
 			misClientes.refresh();
 		}
 	}
+	
+	@FXML
+	private void hadleBack(ActionEvent event) throws Exception {
+		try {
+			Object eventSource = event.getSource();
+			Node node = (Node) eventSource;
+			Scene oldScene = node.getScene();
+			Window w = oldScene.getWindow();
+			Stage stage = (Stage) w;
+			stage.hide();
+
+			Parent root = FXMLLoader.load(getClass().getResource("menuPrincipal.fxml"));
+			Scene scene = new Scene(root, 501, 219);
+			Stage newStage = new Stage();
+			newStage.setScene(scene);
+			newStage.setTitle("Elegir Cliente - Rutina");
+			newStage.show();
+
+			newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+				@Override
+				public void handle(WindowEvent event) {
+					// TODO Auto-generated method stub
+					Platform.exit();
+				}
+			});
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	@FXML
 	private void Refresh() {
 		initialize();

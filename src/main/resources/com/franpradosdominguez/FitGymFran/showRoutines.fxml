@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.franpradosdominguez.FitGymFran.showRoutinesController">
+   <children>
+      <Button fx:id="back" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#switchToSecundary" text="Volver" />
+      <Label layoutX="148.0" layoutY="22.0" text="TODAS LAS RUTINAS">
+         <font>
+            <Font name="Dubai Bold" size="32.0" />
+         </font>
+      </Label>
+      <TableView fx:id="rutinas" layoutX="200.0" layoutY="88.0" onSort="#initialize" prefHeight="258.0" prefWidth="600.0" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="88.0">
+        <columns>
+          <TableColumn fx:id="idCli" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="nameCli" prefWidth="108.0" text="Nombre" />
+            <TableColumn fx:id="descCli" prefWidth="416.0" text="Descripcion" />
+        </columns>
+      </TableView>
+      <Button fx:id="btadd" layoutX="275.0" layoutY="361.0" mnemonicParsing="false" onAction="#addRoutineByClient" text="Añadir" />
+   </children>
+</AnchorPane>

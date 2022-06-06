@@ -41,11 +41,11 @@ public class editClientController {
 	public void initAttributes(List<Cliente> clientes, Cliente c) {
 		//this.clientes = clientes;
 		this.cliente = c;
-		this.id_Client.setText(c.getId() + "");
+		this.id_Client.setText(c.getIdCliente() + "");
 		this.nameClient.setText(c.getName());
 		this.emailClient.setText(c.getEmail());
 		this.dniClient.setText(c.getDni());
-		this.phoneClient.setText(c.getPhone() + "");
+		this.phoneClient.setText(c.getPhone());
 	}
 
 	@FXML
@@ -55,7 +55,7 @@ public class editClientController {
 		String nombre = nameClient.getText();
 		String em = emailClient.getText();
 		String dni_c = dniClient.getText();
-		int telefono = Integer.parseInt(phoneClient.getText());
+		String telefono = phoneClient.getText();
 
 		// Modificando...
 		if (this.cliente != null) {

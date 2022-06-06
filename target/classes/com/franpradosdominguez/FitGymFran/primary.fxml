@@ -26,10 +26,11 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="btadd" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#newAddClient" text="Añadir" />
-      <Button fx:id="btedit" layoutX="78.0" layoutY="361.0" mnemonicParsing="false" onAction="#editClient" text="Editar" />
-      <Button fx:id="btdelete" layoutX="134.0" layoutY="361.0" mnemonicParsing="false" onAction="#deleteClient" text="Borrar" />
-      <Button fx:id="btsala" layoutX="548.0" layoutY="361.0" mnemonicParsing="false" onAction="#switchToSecundary" text="Sala" />
-      <Button fx:id="update" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#Refresh" prefHeight="25.0" prefWidth="22.0" />
+      <Button fx:id="btadd" layoutX="198.0" layoutY="361.0" mnemonicParsing="false" onAction="#newAddClient" text="Inscribir" />
+      <Button fx:id="btedit" layoutX="270.0" layoutY="361.0" mnemonicParsing="false" onAction="#editClient" text="Editar" />
+      <Button fx:id="btdelete" layoutX="330.0" layoutY="361.0" mnemonicParsing="false" onAction="#deleteClient" text="Dar de Baja" />
+      <Button fx:id="btsala" layoutX="548.0" layoutY="361.0" mnemonicParsing="false" onAction="#selectClient" text="Sala" />
+      <Button fx:id="update" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#Refresh" prefHeight="25.0" prefWidth="30.0" />
+      <Button fx:id="back" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#hadleBack" text="Volver" />
    </children>
 </AnchorPane>

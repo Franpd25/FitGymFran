@@ -14,9 +14,6 @@ import com.franpradosdominguez.FitGymFran.model.DataObject.Cliente;
 import com.franpradosdominguez.FitGymFran.model.DataObject.Rutina;
 import com.franpradosdominguez.FitGymFran.utils.Connect;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer> {
 
 	private Connection miConexion;
@@ -25,19 +22,19 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 		// TODO Auto-generated constructor stub
 		this.miConexion = Connect.getConnect();
 	}
-
-	public ClienteDAO(String name) {
-		super(name);
+	
+	public ClienteDAO(int id, String name, String email, String dni, String phone, List<Rutina> misRutinas) {
+		super(id, name, email, dni, phone, misRutinas);
 		this.miConexion = miConexion;
 	}
 	
-	public ClienteDAO(int id, String name, String email, String dni, int phone) {
-		super(id, name, email, dni, phone);
+	public ClienteDAO(String name, String email, String dni, String phone) {
+		super(name, email, dni, phone);
 		this.miConexion = miConexion;
 	}
 
-	public ClienteDAO(String name, String email, String dni, int phone) {
-		super(name, email, dni, phone);
+	public ClienteDAO(String name) {
+		super(name);
 		this.miConexion = miConexion;
 	}
 
@@ -49,7 +46,8 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 	}
 	
 	/**
-	 * Este método nos sirve para insertar un cliente con todos sus campos.
+	 * Este método nos sirve para insertar un cliente con todos los atributos
+	 * de la propia clase.
 	 * @param c: el cliente a insertar.
 	 * @return true si el cliente se ha insertado y false si no se ha insertado correctamente.
 	 */
@@ -57,15 +55,14 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 	public boolean insert(Cliente c) {
 		// TODO Auto-generated method stub
 		boolean addC = false;
-		String consulta = "INSERT INTO cliente (id_cliente, nombre, email, dni, telefono) VALUES (?, ?, ?, ?, ?)";
+		String consulta = "INSERT INTO cliente (nombre, email, dni, telefono) VALUES (?, ?, ?, ?)";
 		
 		try {
 			PreparedStatement ps = miConexion.prepareStatement(consulta);
-			ps.setInt(1, c.getId());
-			ps.setString(2, c.getName());
-			ps.setString(3, c.getEmail());
-			ps.setString(4, c.getDni());
-			ps.setInt(5, c.getPhone());
+			ps.setString(1, c.getName());
+			ps.setString(2, c.getEmail());
+			ps.setString(3, c.getDni());
+			ps.setString(4, c.getPhone());
 			ps.executeUpdate();
 			addC = true;
 			
@@ -93,11 +90,11 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 			ResultSet rs = ps.executeQuery();
 			c = new Cliente();
 			rs.next();
-			c.setId(rs.getInt("id_cliente"));
+			c.setIdCliente(rs.getInt("id_cliente"));
 			c.setName(rs.getString("nombre"));
 			c.setEmail(rs.getString("email"));
 			c.setDni(rs.getString("dni"));
-			c.setPhone(rs.getInt("telefono"));
+			c.setPhone(rs.getString("telefono"));
 			
 			//RutinaDAO rdao = new RutinaDAO();
 			//c.setMiRutina(rdao.getAllRutinesForClient(c));
@@ -111,27 +108,32 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 	}
 	
 	/**
-	 * Este método nos sirve para mostrar todos los <-- terminar
-	 * @return
+	 * Este método nos sirve para obtener una lista de las rutinas de cada cliente
+	 * @param c cliente que se obtiene para saber su rutina
+	 * @return una lista de rutinas que tiene asignado a ese cliente.
 	 */
-	public List<Cliente> getClienteByName() {
-		List<Cliente> misClientes = new ArrayList<>();
-		String consulta = "SELECT nombre FROM cliente";
-		
-		Statement st;
+	public List<Rutina> getAllRutineForClient(Cliente c) {
+		List<Rutina> listaRutina = new ArrayList<>();
+		String consulta = "SELECT r.id_rutina, r.nombreRutina, r.descripcion FROM cliente c, cliente_rutina cr, rutina r WHERE c.id_cliente = cr.id_cliente AND cr.id_rutina = r.id_rutina AND c.id_cliente = ?";
 		try {
-			st = miConexion.createStatement();
-			ResultSet rs = st.executeQuery(consulta);
+			PreparedStatement ps = miConexion.prepareStatement(consulta);
+			ps.setInt(1, c.getIdCliente());
+			ResultSet rs = ps.executeQuery();
+			
 			while (rs.next()) {
-				Cliente aux = new Cliente();
-				aux.setName(rs.getString("nombre"));
-				misClientes.add(aux);
+				Rutina r = new Rutina();
+				r.setIdRutina(rs.getInt("id_rutina"));
+				r.setNombreRutina(rs.getString("nombreRutina"));
+				r.setDescripcion(rs.getString("descripcion"));
+				listaRutina.add(r);
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return misClientes;
+		
+		return listaRutina;
 	}
 	
 	/**
@@ -150,11 +152,11 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 			ResultSet rs = st.executeQuery(consulta);
 			while (rs.next()) {
 				Cliente aux = new Cliente();
-				aux.setId(rs.getInt("id_cliente"));
+				aux.setIdCliente(rs.getInt("id_cliente"));
 				aux.setName(rs.getString("nombre"));
 				aux.setEmail(rs.getString("email"));
 				aux.setDni(rs.getString("dni"));
-				aux.setPhone(rs.getInt("telefono"));
+				aux.setPhone(rs.getString("telefono"));
 				c.add(aux);
 				//Cliente cl = new Cliente(id, name, email, dni, phone);
 				//c.add(cl);	
@@ -184,8 +186,8 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 			ps.setString(1, c.getName());
 			ps.setString(2, c.getEmail());
 			ps.setString(3, c.getDni());
-			ps.setInt(4, c.getPhone());
-			ps.setInt(5, c.getId());
+			ps.setString(4, c.getPhone());
+			ps.setInt(5, c.getIdCliente());
 			ps.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -209,7 +211,7 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 		
 		try {
 			PreparedStatement ps = miConexion.prepareStatement(consulta);
-			ps.setInt(1, c.getId());
+			ps.setInt(1, c.getIdCliente());
 			ps.executeUpdate();
 			
 		} catch (SQLException e) {

@@ -13,7 +13,7 @@ import com.franpradosdominguez.FitGymFran.model.DataObject.Cliente;
 import com.franpradosdominguez.FitGymFran.model.DataObject.Rutina;
 import com.franpradosdominguez.FitGymFran.utils.Connect;
 
-public class RutinaDAO implements interfaceDAO<Rutina, Integer> {
+public class RutinaDAO extends Rutina implements interfaceDAO<Rutina, Integer> {
 	
 	private Connection miConexion;
 
@@ -23,9 +23,43 @@ public class RutinaDAO implements interfaceDAO<Rutina, Integer> {
 	}
 
 	@Override
-	public boolean insert(Rutina ob) {
+	public boolean insert(Rutina r) {
 		// TODO Auto-generated method stub
-		return false;
+		boolean insert = false;
+		String consulta = "INSERT INTO rutina (nombreRutina, descripcion) VALUES (?, ?)";
+		
+		try {
+			PreparedStatement ps = miConexion.prepareStatement(consulta);
+			ps.setString(1, r.getNombreRutina());
+			ps.setString(2, r.getDescripcion());
+			ps.executeUpdate();
+			insert = true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			insert = false;
+			e.printStackTrace();
+		}
+		return insert;
+	}
+	
+	public boolean addRoutineForClient(Cliente c, Rutina r) {
+		boolean insert = false;
+		String consulta = "INSERT INTO cliente_rutina (id_cliente, id_rutina) VALUES (?, ?)";
+		
+		try {
+			PreparedStatement ps = miConexion.prepareStatement(consulta);
+			ps.setInt(1, c.getIdCliente());
+			ps.setInt(2, r.getIdRutina());
+			ps.executeUpdate();
+			insert = true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return insert;
 	}
 
 	/**
@@ -45,7 +79,7 @@ public class RutinaDAO implements interfaceDAO<Rutina, Integer> {
 			ResultSet rs = ps.executeQuery();
 			r = new Rutina();
 			rs.next();
-			r.setId_rut(rs.getInt("id_rutina"));
+			r.setIdRutina(rs.getInt("id_rutina"));
 			r.setNombreRutina(rs.getString("nombreRutina"));
 			
 		} catch (SQLException e) {
@@ -63,7 +97,7 @@ public class RutinaDAO implements interfaceDAO<Rutina, Integer> {
 	public Collection<Rutina> getAll() {
 		// TODO Auto-generated method stub
 		Collection<Rutina> r = new ArrayList<>();
-		String consulta = "SELECT id_rutina, nombreRutina FROM rutina";
+		String consulta = "SELECT id_rutina, nombreRutina, descripcion FROM rutina";
 		
 		Statement st;
 		try {
@@ -71,8 +105,9 @@ public class RutinaDAO implements interfaceDAO<Rutina, Integer> {
 			ResultSet rs = st.executeQuery(consulta);
 			while (rs.next()) {
 				Rutina aux = new Rutina();
-				aux.setId_rut(rs.getInt("id_rutina"));
+				aux.setIdRutina(rs.getInt("id_rutina"));
 				aux.setNombreRutina(rs.getString("nombreRutina"));
+				aux.setDescripcion(rs.getString("descripcion"));
 				r.add(aux);
 					
 			}
@@ -86,14 +121,42 @@ public class RutinaDAO implements interfaceDAO<Rutina, Integer> {
 	}
 
 	@Override
-	public int update(Rutina ob) {
+	public int update(Rutina r) {
 		// TODO Auto-generated method stub
-		return 0;
+		int up = -1;
+		String consulta = "UPDATE rutina SET nombreRutina = ?, descripcion = ? WHERE rutina.id_rutina = ?";
+		
+		try {
+			PreparedStatement ps = miConexion.prepareStatement(consulta);
+			ps.setString(1, r.getNombreRutina());
+			ps.setString(2, r.getDescripcion());
+			ps.setInt(3, r.getIdRutina());
+			ps.executeUpdate();
+
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return up;
 	}
 
 	@Override
-	public int delete(Rutina ob) {
+	public int delete(Rutina r) {
 		// TODO Auto-generated method stub
-		return 0;
+		int del = -1;
+		String consulta = "DELETE FROM rutina WHERE rutina.id_rutina = ?";
+		
+		try {
+			PreparedStatement ps = miConexion.prepareStatement(consulta);
+			ps.setInt(1, r.getIdRutina());
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return del;
 	}
 }

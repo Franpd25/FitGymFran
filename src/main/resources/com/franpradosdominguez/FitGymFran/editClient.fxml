@@ -22,8 +22,8 @@
       <Label layoutX="103.0" layoutY="324.0" text="Telefono" />
       <TextField fx:id="phoneClient" layoutX="52.0" layoutY="348.0" />
       <Label layoutX="118.0" layoutY="78.0" text="ID" />
-      <TextField fx:id="id_Client" layoutX="49.0" layoutY="103.0" />
+      <TextField fx:id="id_Client" editable="false" layoutX="49.0" layoutY="103.0" opacity="0.32" />
       <Button fx:id="save" layoutX="17.0" layoutY="411.0" mnemonicParsing="false" onAction="#saveClient" text="Guardar" />
-      <Button fx:id="back" layoutX="187.0" layoutY="411.0" mnemonicParsing="false" onAction="#handleBack" text="Volver" />
+      <Button fx:id="back" layoutX="175.0" layoutY="411.0" mnemonicParsing="false" onAction="#handleBack" text="Cancelar" />
    </children>
 </AnchorPane>

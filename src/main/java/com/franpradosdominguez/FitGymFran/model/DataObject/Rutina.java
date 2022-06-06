@@ -1,32 +1,37 @@
 package com.franpradosdominguez.FitGymFran.model.DataObject;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class Rutina {
-	public static ExercisesTypes ejerTypes;
 	
-	protected int id_rut;
+	protected int idRutina;
 	protected String nombreRutina;
+	protected String descripcion;
+	protected List<Cliente> misClientes;
 
 	public Rutina() {
-		this.id_rut = -1;
-		this.nombreRutina = ExercisesTypes.PECHO.getType();
-		this.nombreRutina = ExercisesTypes.ESPALDA.getType();
-		this.nombreRutina = ExercisesTypes.PIERNAS.getType();
-		this.nombreRutina = ExercisesTypes.HOMBROS.getType();
-		this.nombreRutina = ExercisesTypes.BRAZOS.getType();
+		this(-1, "", "", new ArrayList<>());		
 	}
 
-	public Rutina(int id_rut, String type) {
-		this.id_rut = id_rut;
-		this.nombreRutina = type;
+	public Rutina(int idRutina, String nombreRutina, String descripcion, List<Cliente> misClientes) {
+		this.idRutina = idRutina;
+		this.nombreRutina = nombreRutina;
+		this.descripcion = descripcion;
+		this.misClientes = misClientes;
 	}
 
-	public int getId_rut() {
-		return id_rut;
+	public Rutina(String nombreRutina, String descripcion) {
+		this.nombreRutina = nombreRutina;
+		this.descripcion = descripcion;
 	}
 
-	public void setId_rut(int id_rut) {
-		this.id_rut = id_rut;
+	public int getIdRutina() {
+		return idRutina;
+	}
+
+	public void setIdRutina(int id_rut) {
+		this.idRutina = id_rut;
 	}
 
 	public String getNombreRutina() {
@@ -37,8 +42,30 @@ public class Rutina {
 		this.nombreRutina = type;
 	}
 
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public List<Cliente> getMisClientes() {
+		return misClientes;
+	}
+
+	public void setMisClientes(List<Cliente> misClientes) {
+		this.misClientes = misClientes;
+	}
+
 	@Override
 	public String toString() {
-		return "id_rut = " + id_rut + ", nombreRutina = " + nombreRutina + "\n";
+		return "Identificador = " + idRutina + "\n" +
+				"Nombre de la Rutina = " + nombreRutina + ", descripcion = " + descripcion
+				+ "misClientes=" + misClientes;
 	}
+
+	
+
+	
 }
