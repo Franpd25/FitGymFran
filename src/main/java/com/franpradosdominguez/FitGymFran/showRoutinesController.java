@@ -30,7 +30,7 @@ import javafx.stage.WindowEvent;
 
 public class showRoutinesController {
 	
-	private static Cliente c = new Cliente();
+	private Cliente c = new Cliente();
 	private List<Rutina> todasMisRutinas;
 	private RutinaDAO rdao = new RutinaDAO();
 
@@ -50,7 +50,6 @@ public class showRoutinesController {
 	
 	@FXML
 	public void switchToSecundary(ActionEvent event) throws IOException {
-		SecondaryController.getC();
 		
 		Object eventSource = event.getSource();
 		Node node = (Node) eventSource;
@@ -121,10 +120,6 @@ public class showRoutinesController {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	public static Cliente getC() {
-		return c;
 	}
 	
 }

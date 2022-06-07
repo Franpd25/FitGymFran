@@ -135,6 +135,7 @@ public class PrimaryController {
 	@FXML
 	private void selectClient() {
 		Cliente c = this.misClientes.getSelectionModel().getSelectedItem();
+
 		if (c == null) {
 			Dialog.showError("Message", "ERROR. Selecciona un cliente", "Mostrará la información en la siguiente ventana");
 			

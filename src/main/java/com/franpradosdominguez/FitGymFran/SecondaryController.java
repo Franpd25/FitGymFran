@@ -36,7 +36,7 @@ import javafx.stage.WindowEvent;
 
 public class SecondaryController {
 	
-	private static Cliente c = new Cliente();
+	private Cliente c = new Cliente();
 	private ClienteDAO cdao = new ClienteDAO();
 	private RutinaDAO rdao = new RutinaDAO();
 
@@ -97,13 +97,14 @@ public class SecondaryController {
 		Dialog.showConfirm("Message", "¿Estás seguro de salir de la Aplicación?", "");
 		System.exit(0);
 	}
-	
-	public void initAttributes(Cliente client) {
+
+	protected void initAttributes(Cliente client) {
 		this.c = client;
 		this.id_cliente.setText(c.getIdCliente() + "");
 		this.name.setText(c.getName());
 		
 		this.showClientByTextField();
+		this.initialize();
 	}
 	
 	private void showClientByTextField() {
@@ -119,14 +120,13 @@ public class SecondaryController {
 	
 	@FXML
 	protected void initialize() {
-		this.initAttributes(c);
+		
 		rutinasClientes.getItems().clear();
 		
 		this.configuraTabla();
 		
 		List<Rutina> misRutinas = cdao.getAllRutineForClient(c);
 		ObservableList<Rutina> obList = FXCollections.observableArrayList(misRutinas);
-		
 		rutinasClientes.getItems().addAll(obList);
 	}
 	
@@ -155,11 +155,11 @@ public class SecondaryController {
 	private void newAddRoutine() {
 
 		try {
-			showRoutinesController.getC();
 			
 			FXMLLoader loader1 = new FXMLLoader(getClass().getResource("showRoutines.fxml"));
 			Parent r = loader1.load();
 			showRoutinesController src = loader1.getController();
+			
 			Scene scene = new Scene(r, 600, 400);
 			Stage newStage = new Stage();
 			newStage.setScene(scene);
@@ -196,10 +196,6 @@ public class SecondaryController {
 			this.rdao.delete(r);
 			rutinasClientes.refresh();
 		}
-	}
-
-	public static Cliente getC() {
-		return c;
 	}
 	
 }

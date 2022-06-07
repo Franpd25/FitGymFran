@@ -41,10 +41,6 @@ public class LoginController {
 		if (evt.equals(sign)) {
 			if (!nickname.getText().isEmpty() && !password.getText().isEmpty()) {
 
-				//String user = nickname.getText();
-				//String pwd = password.getText();
-				//int state = udao.loginUser(user, pwd);
-
 				if (nickname.getText().equals("Admin") && password.getText().equals("1234")) {
 					Dialog.showConfirm("Message", "Usuario y contraseña correctos", "");
 					
@@ -57,7 +53,7 @@ public class LoginController {
 					}
 
 				} else {
-					Dialog.showError("Message", "Error al iniciar sesión, datos de acceso incorrectos", "");
+					Dialog.showError("Message", "Error al iniciar sesión", "Los datos de acceso son incorrectos");
 				}
 				
 
