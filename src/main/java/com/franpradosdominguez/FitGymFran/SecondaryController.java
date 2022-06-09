@@ -37,6 +37,7 @@ import javafx.stage.WindowEvent;
 public class SecondaryController {
 	
 	private Cliente c = new Cliente();
+	private Rutina r = new Rutina();
 	private ClienteDAO cdao = new ClienteDAO();
 	private RutinaDAO rdao = new RutinaDAO();
 
@@ -55,7 +56,7 @@ public class SecondaryController {
 	private TextField name;
 	
 	@FXML
-	private Button showRutine;
+	private Button update;
 	@FXML
 	private Button addRoutine;
 	@FXML
@@ -128,6 +129,7 @@ public class SecondaryController {
 		List<Rutina> misRutinas = cdao.getAllRutineForClient(c);
 		ObservableList<Rutina> obList = FXCollections.observableArrayList(misRutinas);
 		rutinasClientes.getItems().addAll(obList);
+		rutinasClientes.refresh();
 	}
 	
 	private void configuraTabla() {
@@ -155,10 +157,12 @@ public class SecondaryController {
 	private void newAddRoutine() {
 
 		try {
+			this.initAttributes(c);
 			
 			FXMLLoader loader1 = new FXMLLoader(getClass().getResource("showRoutines.fxml"));
 			Parent r = loader1.load();
 			showRoutinesController src = loader1.getController();
+			src.initAttributes(c);
 			
 			Scene scene = new Scene(r, 600, 400);
 			Stage newStage = new Stage();
@@ -198,4 +202,8 @@ public class SecondaryController {
 		}
 	}
 	
+	@FXML
+	private void Refresh() {
+		this.initialize();
+	}
 }

@@ -22,14 +22,16 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 
 public class showRoutinesController {
-	
+
 	private Cliente c = new Cliente();
 	private List<Rutina> todasMisRutinas;
 	private RutinaDAO rdao = new RutinaDAO();
@@ -37,17 +39,18 @@ public class showRoutinesController {
 	@FXML
 	private TableView<Rutina> rutinas;
 	@FXML
-	private TableColumn<Rutina, Integer> idCli;
+	private TableColumn<Rutina, Integer> id;
 	@FXML
-	private TableColumn<Rutina, String> nameCli;
+	private TableColumn<Rutina, String> nameR;
 	@FXML
-	private TableColumn<Rutina, String> descCli;
+	private TableColumn<Rutina, String> desc;
+
 	
 	@FXML
 	private Button btadd;
 	@FXML
 	private Button back;
-	
+
 	@FXML
 	public void switchToSecundary(ActionEvent event) throws IOException {
 		
@@ -58,8 +61,11 @@ public class showRoutinesController {
 		Stage stage = (Stage) w;
 		stage.hide();
 
-		Parent root = FXMLLoader.load(getClass().getResource("secondary.fxml"));
-		Scene scene = new Scene(root, 600, 400);
+		FXMLLoader loader1 = new FXMLLoader(getClass().getResource("secondary.fxml"));
+		Parent r = loader1.load();
+		SecondaryController sc = loader1.getController();
+		sc.initAttributes(c);
+		Scene scene = new Scene(r, 600, 400);
 		Stage newStage = new Stage();
 		newStage.setScene(scene);
 		newStage.setTitle("Sala");
@@ -74,52 +80,82 @@ public class showRoutinesController {
 			}
 		});
 	}
-	
+
 	@FXML
 	protected void initialize() {
 		this.configuraTabla();
 		todasMisRutinas = (List<Rutina>) rdao.getAll();
 		rutinas.setItems(FXCollections.observableArrayList(todasMisRutinas));
-		
+
 	}
-	
+
 	private void configuraTabla() {
-		idCli.setCellValueFactory(routine -> {
+		id.setCellValueFactory(routine -> {
 			ObservableValue<Integer> ov = new SimpleIntegerProperty().asObject();
 			((ObjectProperty<Integer>) ov).setValue(routine.getValue().getIdRutina());
 			return ov;
 		});
-		
-		nameCli.setCellValueFactory(routine -> {
+
+		nameR.setCellValueFactory(routine -> {
 			SimpleStringProperty ssp = new SimpleStringProperty();
 			ssp.setValue(routine.getValue().getNombreRutina());
 			return ssp;
 		});
-		
-		descCli.setCellValueFactory(routine -> {
+
+		desc.setCellValueFactory(routine -> {
 			SimpleStringProperty ssp = new SimpleStringProperty();
 			ssp.setValue(routine.getValue().getDescripcion());
 			return ssp;
 		});
 	}
-	
+
 	@FXML
-	private void addRoutineByClient(ActionEvent event) {
-		Rutina r = this.rutinas.getSelectionModel().getSelectedItem();
+	private void addRoutineByClient() {
 		
-		if (r == null) {
-			Dialog.showError("Message", "Selecciona una rutina", "Seleccionando una rutina podrá asignarsela al cliente");
-			
-		}else {
+		Rutina rutina = this.rutinas.getSelectionModel().getSelectedItem();
+
+		if (rutina == null) {
+			Dialog.showError("Message", "Selecciona una rutina",
+					"Seleccionando una rutina podrás asignarsela al cliente");
+
+		} else {
 			try {
-				this.switchToSecundary(event);
-				this.rdao.addRoutineForClient(c, r);
+
+				FXMLLoader loader1 = new FXMLLoader(getClass().getResource("secondary.fxml"));
+				Parent r = loader1.load();
+				SecondaryController sc = loader1.getController();
+				sc.initAttributes(c);
+
+				Scene scene = new Scene(r, 600, 400);
+				Stage newStage = new Stage();
+				newStage.setScene(scene);
+				newStage.setTitle("Sala");
+				newStage.show();
 				
+				if (rutina != null) {
+					this.rdao.addRoutineForClient(c, rutina);
+				}
+
+				newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+					@Override
+					public void handle(WindowEvent event) {
+						// TODO Auto-generated method stub
+						Platform.exit();
+					}
+				});
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
+			Stage stage = (Stage) this.btadd.getScene().getWindow();
+			stage.close();
 		}
 	}
 	
+	protected void initAttributes(Cliente client) {
+		this.c = client;
+		this.initialize();
+	}
 }

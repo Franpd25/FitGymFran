@@ -57,7 +57,7 @@ public class PSControllerButtonRoutine {
 		this.configuraTabla();
 		todasMisRutinas = (List<Rutina>) rdao.getAll();
 		misRutinas.setItems(FXCollections.observableArrayList(todasMisRutinas));
-		
+		misRutinas.refresh();
 	}
 	
 	private void configuraTabla() {
@@ -180,5 +180,10 @@ public class PSControllerButtonRoutine {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML
+	private void Refresh() {
+		initialize();
 	}
 }

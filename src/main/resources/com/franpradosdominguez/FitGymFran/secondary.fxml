@@ -17,7 +17,7 @@
       </Label>
       <Button fx:id="back" layoutX="14.0" layoutY="367.0" mnemonicParsing="false" onAction="#switchToPrimary" text="Volver" />
       <Button fx:id="salir" layoutX="547.0" layoutY="367.0" mnemonicParsing="false" onAction="#go_out" text="Salir" />
-      <Button fx:id="showRutine" disable="true" layoutX="80.0" layoutY="367.0" mnemonicParsing="false" text="Mostrar Rutina" />
+      <Button fx:id="update" layoutX="104.0" layoutY="367.0" mnemonicParsing="false" onAction="#Refresh" text="Actualizar" />
       <Button fx:id="addRoutine" layoutX="186.0" layoutY="367.0" mnemonicParsing="false" onAction="#newAddRoutine" text="Asignar Rutina" />
       <TextField fx:id="id_cliente" editable="false" layoutX="42.0" layoutY="97.0" opacity="0.53" prefHeight="25.0" prefWidth="62.0" />
       <TextField fx:id="name" layoutX="128.0" layoutY="97.0" prefHeight="25.0" prefWidth="122.0" />

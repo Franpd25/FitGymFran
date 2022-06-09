@@ -17,9 +17,9 @@
       </Label>
       <TableView fx:id="rutinas" layoutX="200.0" layoutY="88.0" onSort="#initialize" prefHeight="258.0" prefWidth="600.0" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="88.0">
         <columns>
-          <TableColumn fx:id="idCli" prefWidth="75.0" text="ID" />
-            <TableColumn fx:id="nameCli" prefWidth="108.0" text="Nombre" />
-            <TableColumn fx:id="descCli" prefWidth="416.0" text="Descripcion" />
+          <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="nameR" prefWidth="108.0" text="Nombre" />
+            <TableColumn fx:id="desc" prefWidth="416.0" text="Descripcion" />
         </columns>
       </TableView>
       <Button fx:id="btadd" layoutX="275.0" layoutY="361.0" mnemonicParsing="false" onAction="#addRoutineByClient" text="Añadir" />
