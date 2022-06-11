@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.franpradosdominguez.FitGymFran.model.DataObject.Cliente;
 
-public interface interfaceDAO<T,K> {
+public interface InterfaceDAO<T,K> {
 
 	abstract boolean insert(T ob);
 	T get(K id);

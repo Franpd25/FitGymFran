@@ -17,7 +17,7 @@
       </Label>
       <Button fx:id="back" layoutX="14.0" layoutY="367.0" mnemonicParsing="false" onAction="#switchToPrimary" text="Volver" />
       <Button fx:id="salir" layoutX="547.0" layoutY="367.0" mnemonicParsing="false" onAction="#go_out" text="Salir" />
-      <Button fx:id="update" layoutX="104.0" layoutY="367.0" mnemonicParsing="false" onAction="#Refresh" text="Actualizar" />
+      <Button fx:id="update" layoutX="110.0" layoutY="367.0" mnemonicParsing="false" onAction="#Refresh" text="Actualizar" />
       <Button fx:id="addRoutine" layoutX="186.0" layoutY="367.0" mnemonicParsing="false" onAction="#newAddRoutine" text="Asignar Rutina" />
       <TextField fx:id="id_cliente" editable="false" layoutX="42.0" layoutY="97.0" opacity="0.53" prefHeight="25.0" prefWidth="62.0" />
       <TextField fx:id="name" layoutX="128.0" layoutY="97.0" prefHeight="25.0" prefWidth="122.0" />
@@ -38,7 +38,7 @@
             <TableColumn fx:id="description" prefWidth="346.0" text="Descripcion" />
         </columns>
       </TableView>
-      <Button fx:id="btdeleteRoutine" layoutX="291.0" layoutY="367.0" mnemonicParsing="false" onAction="#deleteRoutine" text="Eliminar Rutina" />
+      <Button fx:id="btdeleteRoutine" layoutX="285.0" layoutY="367.0" mnemonicParsing="false" onAction="#deleteRoutine" text="Eliminar Rutina" />
       <Label layoutX="166.0" layoutY="136.0" text="LISTA TODAS LAS RUTINAS DEL CLIENTE">
          <font>
             <Font name="System Bold" size="13.0" />

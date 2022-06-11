@@ -62,10 +62,6 @@ public class Rutina {
 	public String toString() {
 		return "Identificador = " + idRutina + "\n" +
 				"Nombre de la Rutina = " + nombreRutina + ", descripcion = " + descripcion
-				+ "misClientes=" + misClientes;
+				+ "Lista del Clienten = " + misClientes;
 	}
-
-	
-
-	
 }

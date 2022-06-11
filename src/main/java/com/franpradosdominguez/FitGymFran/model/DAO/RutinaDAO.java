@@ -7,13 +7,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-import com.franpradosdominguez.FitGymFran.interfaces.interfaceDAO;
+import com.franpradosdominguez.FitGymFran.interfaces.InterfaceDAO;
 import com.franpradosdominguez.FitGymFran.model.DataObject.Cliente;
 import com.franpradosdominguez.FitGymFran.model.DataObject.Rutina;
 import com.franpradosdominguez.FitGymFran.utils.Connect;
 
-public class RutinaDAO extends Rutina implements interfaceDAO<Rutina, Integer> {
+public class RutinaDAO extends Rutina implements InterfaceDAO<Rutina, Integer> {
 	
 	private Connection miConexion;
 
@@ -22,6 +23,22 @@ public class RutinaDAO extends Rutina implements interfaceDAO<Rutina, Integer> {
 		this.miConexion = Connect.getConnect();
 	}
 
+	public RutinaDAO(int idRutina, String nombreRutina, String descripcion, List<Cliente> misClientes,
+			Connection miConexion) {
+		super(idRutina, nombreRutina, descripcion, misClientes);
+		this.miConexion = miConexion;
+	}
+
+	public RutinaDAO(String nombreRutina, String descripcion) {
+		super(nombreRutina, descripcion);
+	}
+
+	/**
+	 * Este método nos sirve para insertar una rutina con todos los atributos
+	 * de la propia clase.
+	 * @param r: la rutina a insertar.
+	 * @return true si la rutina se ha insertado y false si no se ha insertado correctamente.
+	 */
 	@Override
 	public boolean insert(Rutina r) {
 		// TODO Auto-generated method stub
@@ -43,6 +60,14 @@ public class RutinaDAO extends Rutina implements interfaceDAO<Rutina, Integer> {
 		return insert;
 	}
 	
+	/**
+	 * Este método se encarga de añadir una rutina para el cliente que
+	 * se ha seleccionado y lo añade en la tabla de en media de la BBDD.
+	 * @param c: el cliente seleccionado.
+	 * @param r: la rutina a insertar.
+	 * @return true si la rutina se ha insertado y false si no se ha insertado correctamente
+	 * a dicho cliente.
+	 */
 	public boolean addRoutineForClient(Cliente c, Rutina r) {
 		boolean insert = false;
 		String consulta = "INSERT INTO cliente_rutina (id_cliente, id_rutina) VALUES (?, ?)";
@@ -120,6 +145,11 @@ public class RutinaDAO extends Rutina implements interfaceDAO<Rutina, Integer> {
 		return r;
 	}
 
+	/**
+	 * Este método nos sirve para actualizar una rutina por algunos campos de su tabla
+	 * @param r es la rutina que se recibe para actualizarlo.
+	 * @return la posición de la rutina.
+	 */
 	@Override
 	public int update(Rutina r) {
 		// TODO Auto-generated method stub
@@ -141,6 +171,11 @@ public class RutinaDAO extends Rutina implements interfaceDAO<Rutina, Integer> {
 		return up;
 	}
 
+	/**
+	 * Este método nos sirve para eliminar una rutina de la tabla
+	 * @param r: es la rutina que seleccionamos para el borrado.
+	 * @return -1 si no existe.
+	 */
 	@Override
 	public int delete(Rutina r) {
 		// TODO Auto-generated method stub

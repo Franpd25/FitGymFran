@@ -22,15 +22,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 
-public class showRoutinesController {
+public class ShowRoutinesController {
 
 	private Cliente c = new Cliente();
 	private List<Rutina> todasMisRutinas;
@@ -44,13 +42,20 @@ public class showRoutinesController {
 	private TableColumn<Rutina, String> nameR;
 	@FXML
 	private TableColumn<Rutina, String> desc;
-
 	
 	@FXML
 	private Button btadd;
 	@FXML
 	private Button back;
 
+	/**
+	 * Este método se encarga de cambiarnos de vista, que en este caso
+	 * nos dirigimos a la vista secundaria.
+	 * @param event
+	 * @throws IOException: controla la excepción de la ruta a la que
+	 * nos dirijimos.
+	 */
+	@SuppressWarnings("exports")
 	@FXML
 	public void switchToSecundary(ActionEvent event) throws IOException {
 		
@@ -79,6 +84,16 @@ public class showRoutinesController {
 				Platform.exit();
 			}
 		});
+	}
+	
+	/**
+	 * Este método se encarga de iniciar los valores del propio
+	 * cliente seleccionado en los campos de la vista anterior.
+	 * @param client: cliente que se le pasa seleccionado.
+	 */
+	protected void initAttributes(Cliente client) {
+		this.c = client;
+		this.initialize();
 	}
 
 	@FXML
@@ -109,8 +124,14 @@ public class showRoutinesController {
 		});
 	}
 
+	/**
+	 * Este método se encarga de añadir una rutina al cliente que 
+	 * previamente hayamos seleccionado en la vista anterior (Vista Secundaria).
+	 * @throws Exception: controla la excepción de la ruta a la
+	 * que nos dirijimos.
+	 */
 	@FXML
-	private void addRoutineByClient() {
+	private void addRoutineByClient() throws Exception {
 		
 		Rutina rutina = this.rutinas.getSelectionModel().getSelectedItem();
 
@@ -118,9 +139,10 @@ public class showRoutinesController {
 			Dialog.showError("Message", "Selecciona una rutina",
 					"Seleccionando una rutina podrás asignarsela al cliente");
 
-		} else {
+		}else {
+			
 			try {
-
+				
 				FXMLLoader loader1 = new FXMLLoader(getClass().getResource("secondary.fxml"));
 				Parent r = loader1.load();
 				SecondaryController sc = loader1.getController();
@@ -134,6 +156,8 @@ public class showRoutinesController {
 				
 				if (rutina != null) {
 					this.rdao.addRoutineForClient(c, rutina);
+					Dialog.showConfirm("Message", "Rutina añadida correctamente",
+							"Has añadido la rutina correctamente al cliente seleccionado");
 				}
 
 				newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -144,6 +168,7 @@ public class showRoutinesController {
 						Platform.exit();
 					}
 				});
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -152,10 +177,5 @@ public class showRoutinesController {
 			Stage stage = (Stage) this.btadd.getScene().getWindow();
 			stage.close();
 		}
-	}
-	
-	protected void initAttributes(Cliente client) {
-		this.c = client;
-		this.initialize();
 	}
 }

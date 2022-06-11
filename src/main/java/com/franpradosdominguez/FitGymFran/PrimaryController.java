@@ -59,11 +59,13 @@ public class PrimaryController {
 	private Button back;
 
 	/**
-	 * Este método nos sirve para cambiarnos de ventana, que en este caso
+	 * Este método se encarga de cambiarnos de vista, que en este caso
 	 * nos dirigimos a la vista secundaria.
 	 * @param event
-	 * @throws IOException
+	 * @throws IOException: controla la excepción de la ruta a la que
+	 * nos dirijimos.
 	 */
+	@SuppressWarnings("exports")
 	@FXML
 	public void switchToSecundary(ActionEvent event) throws IOException {
 		Object eventSource = event.getSource();
@@ -132,8 +134,14 @@ public class PrimaryController {
 		});
 	}
 	
+	/**
+	 * Este método se encarga de seleccionar un cliente para mostrar
+	 * la información de su rutina en la siguiente vista, en mi caso, se trata
+	 * de la vista secundaria.
+	 * @throws Exception: controla la excepción de la ruta dirijida.
+	 */
 	@FXML
-	private void selectClient() {
+	private void selectClient() throws Exception {
 		Cliente c = this.misClientes.getSelectionModel().getSelectedItem();
 
 		if (c == null) {
@@ -171,14 +179,19 @@ public class PrimaryController {
 			stage.close();
 		}
 	}
-
+	
+	/**
+	 * Este método se encarga de añadir un cliente, para ello hace
+	 * referencia al botón Inscribir que nos lleva a la vista de Añadir Cliente.
+	 * @throws Exception: controla la excepción de la ruta a la que nos dirijimos.
+	 */
 	@FXML
-	private void newAddClient() {
+	private void newAddClient() throws Exception {
 
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("addClient.fxml"));
 			Parent root = loader.load();
-			addClientController acc = loader.getController();
+			AddClientController acc = loader.getController();
 
 			Scene scene = new Scene(root, 250, 450);
 			Stage stage = new Stage();
@@ -187,6 +200,8 @@ public class PrimaryController {
 			stage.setScene(scene);
 			stage.showAndWait();
 			
+			//Añadiendo un cliente y que se actualize la tabla
+			//controlando si el cliente existe para añadirlo...
 			Cliente c = acc.getCliente();
 			if (c != null) {
 				this.todosMisClientes.add(c);
@@ -199,8 +214,13 @@ public class PrimaryController {
 		}
 	}
 
+	/**
+	 * Este método se encarga de editar un cliente, para ello hace
+	 * referencia al botón Editar que nos lleva a la vista de Editar Cliente.
+	 * @throws Exception: controla la excepción de la ruta a la que nos dirijimos.
+	 */
 	@FXML
-	private void editClient() {
+	private void editClient() throws Exception {
 
 		Cliente c = this.misClientes.getSelectionModel().getSelectedItem();
 		
@@ -212,8 +232,8 @@ public class PrimaryController {
 
 				FXMLLoader loader1 = new FXMLLoader(getClass().getResource("editClient.fxml"));
 				Parent r = loader1.load();
-				editClientController ecc = loader1.getController();
-				ecc.initAttributes(todosMisClientes, c);
+				EditClientController ecc = loader1.getController();
+				ecc.initAttributes(c);
 
 				Scene scene = new Scene(r, 250, 450);
 				Stage stage = new Stage();
@@ -222,6 +242,8 @@ public class PrimaryController {
 				stage.setScene(scene);
 				stage.showAndWait();
 				
+				//Editando un cliente y que se actualize la tabla
+				//controlando si el cliente existe para editarlo...
 				Cliente aux = ecc.getCliente();
 				if (aux != null) {
 					cdao.update(c);
@@ -235,6 +257,11 @@ public class PrimaryController {
 		}
 	}
 
+	/**
+	 * Este método se encarga de elimiar un cliente, para ello hace
+	 * referencia al botón Dar de Baja. Hay que seleccionar el cliente
+	 * para poder borrarlo, si no nos salta un mensaje de ERROR.
+	 */
 	@FXML
 	private void deleteClient() {
 
@@ -250,6 +277,11 @@ public class PrimaryController {
 		}
 	}
 	
+	/**
+	 * Este método se encarga de volver a la vista anterior, en nuestra caso,
+	 * de poder volver a la vista del Menú Principal.
+	 * @throws Exception: controla la excepción de la ruta a la que nos dirijimos.
+	 */
 	@FXML
 	private void hadleBack(ActionEvent event) throws Exception {
 		try {

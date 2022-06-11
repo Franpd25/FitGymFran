@@ -15,7 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class editRoutineController {
+public class EditRoutineController {
 	
 	private Rutina r;
 	private RutinaDAO rdao = new RutinaDAO();
@@ -31,6 +31,12 @@ public class editRoutineController {
 	@FXML
 	private Button cancel;
 	
+	/**
+	 * Este método se encarga de iniciar los valores de la propia
+	 * rutina seleccionada en los campos de la vista.
+	 * @param rut: rutina que se le pasa seleccionada.
+	 */
+	@SuppressWarnings("exports")
 	public void initAttributes(Rutina rut) {
 		this.r = rut;
 		this.idRoutine.setText(rut.getIdRutina() + "");
@@ -38,6 +44,14 @@ public class editRoutineController {
 		this.descRoutine.setText(rut.getDescripcion());
 	}
 	
+	/**
+	 * Este método se encarga de editar la rutina obteniendo todos
+	 * sus campos inicializados para después modificar cualquier campo
+	 * para actualizar dicha rutina.
+	 * @throws IOException: controlar la excepción para que se
+	 * modifique la rutina seleccionada.
+	 */
+	@SuppressWarnings("unused")
 	@FXML
 	private void saveRoutine() throws IOException {
 		int id = Integer.parseInt(idRoutine.getText());
@@ -56,13 +70,18 @@ public class editRoutineController {
 		stage.close();
 	}
 	
+	/**
+	 * Este método se encarga de volver a la vista rutina, en el caso
+	 * de que no quieras editar la rutina que se haya seleccionado.
+	 */
+	@SuppressWarnings("unused")
 	@FXML
 	public void handleCancel() {
 		
 		try {
-			FXMLLoader loader1 = new FXMLLoader(getClass().getResource("secondary.fxml"));
+			FXMLLoader loader1 = new FXMLLoader(getClass().getResource("routineview.fxml"));
 			Parent r = loader1.load();
-			SecondaryController sc = loader1.getController();
+			PSControllerButtonRoutine pcbr = loader1.getController();
 			
 			Scene scene = new Scene(r, 600, 400);
 			Stage stage = (Stage) this.cancel.getScene().getWindow();
@@ -74,6 +93,11 @@ public class editRoutineController {
 		}
 	}
 
+	/**
+	 * Este es un método getter para poder obtener la rutina.
+	 * @return rutina obtenida.
+	 */
+	@SuppressWarnings("exports")
 	public Rutina getR() {
 		return r;
 	}

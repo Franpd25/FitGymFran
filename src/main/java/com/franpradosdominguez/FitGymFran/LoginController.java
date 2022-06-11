@@ -32,11 +32,15 @@ public class LoginController {
 	private Button sign;
 
 	/**
-	 * Este método sirve para logearse como usuario administrador
+	 * Este método se encarga de logearse como usuario Administrador. Para ello,
+	 * debemos de introducir el usuario y la contraseña correctamente para poder
+	 * acceder a nuestra App.
 	 * @param event
+	 * @throws Exception: controla todo tipo de excepción en el caso de
+	 * que no inicies correctamente con el usuario indicado.
 	 */
 	@FXML
-	private void eventAction(ActionEvent event) {
+	private void eventAction(ActionEvent event) throws Exception {
 		Object evt = event.getSource();
 		if (evt.equals(sign)) {
 			if (!nickname.getText().isEmpty() && !password.getText().isEmpty()) {
@@ -56,7 +60,6 @@ public class LoginController {
 					Dialog.showError("Message", "Error al iniciar sesión", "Los datos de acceso son incorrectos");
 				}
 				
-
 			} else {
 				Dialog.showError("Message", "ERROR. Introduce usuario y contraseña", "");
 			}
@@ -64,20 +67,15 @@ public class LoginController {
 	}
 
 	/**
-	 * Este método sirve para cambiarse de ventana, en nuestro caso
-	 * a la ventana principal
+	 * Este método se encarga de cambiar de vista, en nuestro caso
+	 * a la vista del Menú Principal.
 	 * @param event 
-	 * @throws IOException excepción que controla este método
+	 * @throws IOException excepción que controla este método por
+	 * ruta indicada, donde nos dirigimos.
 	 */
 	private void switchToPrimary(ActionEvent event) throws IOException {
 
 		((Node) (event.getSource())).getScene().getWindow().hide();
-		/*Object eventSource = event.getSource();
-		Node node = (Node) eventSource;
-		Scene oldScene = node.getScene();
-		Window w = oldScene.getWindow();
-		Stage stage = (Stage) w;
-		stage.hide();*/
 
 		Parent root = FXMLLoader.load(getClass().getResource("menuPrincipal.fxml"));
 		Scene scene = new Scene(root, 501, 219);

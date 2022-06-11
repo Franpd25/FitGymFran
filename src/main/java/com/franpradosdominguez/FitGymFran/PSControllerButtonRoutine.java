@@ -13,7 +13,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -80,13 +79,19 @@ public class PSControllerButtonRoutine {
 		});
 	}
 	
+	/**
+	 * Este método se encarga de añadir una rutina, para ello hace
+	 * referencia al botón Añadir que nos lleva a la vista de Añadir Rutina.
+	 * @throws Exception: controla la excepción de la ruta a la que nos dirijimos.
+	 */
+	@SuppressWarnings("unused")
 	@FXML
-	private void newAddRoutine() {
+	private void newAddRoutine() throws Exception {
 
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("addRoutine.fxml"));
 			Parent root = loader.load();
-			addRoutineController arc = loader.getController();
+			AddRoutineController arc = loader.getController();
 			
 			Scene scene = new Scene(root, 250, 440);
 			Stage stage = new Stage();
@@ -101,8 +106,13 @@ public class PSControllerButtonRoutine {
 		}
 	}
 	
+	/**
+	 * Este método se encarga de editar una rutina, para ello hace
+	 * referencia al botón Modificar que nos lleva a la vista de Editar Rutina.
+	 * @throws Exception: controla la excepción de la ruta a la que nos dirijimos.
+	 */
 	@FXML
-	private void editRoutine() {
+	private void editRoutine() throws Exception {
 		Rutina r = this.misRutinas.getSelectionModel().getSelectedItem();
 		
 		if (r == null) {
@@ -113,7 +123,7 @@ public class PSControllerButtonRoutine {
 			try {
 				FXMLLoader loader1 = new FXMLLoader(getClass().getResource("editRoutine.fxml"));
 				Parent root = loader1.load();
-				editRoutineController erc = loader1.getController();
+				EditRoutineController erc = loader1.getController();
 				erc.initAttributes(r);
 				
 				Scene scene = new Scene(root, 250, 475);
@@ -136,6 +146,11 @@ public class PSControllerButtonRoutine {
 		}
 	}
 	
+	/**
+	 * Este método se encarga de elimiar una rutina, para ello hace
+	 * referencia al botón Borrar. Hay que seleccionar la rutina
+	 * para poder borrarla, si no nos salta un mensaje de ERROR.
+	 */
 	@FXML
 	private void deleteRoutine() {
 		Rutina r = this.misRutinas.getSelectionModel().getSelectedItem();
@@ -150,6 +165,11 @@ public class PSControllerButtonRoutine {
 		}
 	}
 	
+	/**
+	 * Este método se encarga de volver a la vista anterior, en nuestra caso,
+	 * de poder volver a la vista del Menú Principal.
+	 * @throws Exception: controla la excepción de la ruta a la que nos dirijimos.
+	 */
 	@FXML
 	private void hadleBack(ActionEvent event) throws Exception {
 		try {

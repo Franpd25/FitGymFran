@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.franpradosdominguez.FitGymFran.interfaces.interfaceDAO;
+import com.franpradosdominguez.FitGymFran.interfaces.InterfaceDAO;
 import com.franpradosdominguez.FitGymFran.model.DataObject.Cliente;
 import com.franpradosdominguez.FitGymFran.model.DataObject.Rutina;
 import com.franpradosdominguez.FitGymFran.utils.Connect;
 
-public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer> {
+public class ClienteDAO extends Cliente implements InterfaceDAO<Cliente, Integer> {
 
 	private Connection miConexion;
 	
@@ -22,20 +22,23 @@ public class ClienteDAO extends Cliente implements interfaceDAO<Cliente, Integer
 		// TODO Auto-generated constructor stub
 		this.miConexion = Connect.getConnect();
 	}
-	
-	public ClienteDAO(int id, String name, String email, String dni, String phone, List<Rutina> misRutinas) {
+
+	public ClienteDAO(int id, String name, String email, String dni, String phone, List<Rutina> misRutinas,
+			Connection miConexion) {
 		super(id, name, email, dni, phone, misRutinas);
 		this.miConexion = miConexion;
+	}
+
+	public ClienteDAO(int id, String name, String email, String dni, String phone, List<Rutina> misRutinas) {
+		super(id, name, email, dni, phone, misRutinas);
 	}
 	
 	public ClienteDAO(String name, String email, String dni, String phone) {
 		super(name, email, dni, phone);
-		this.miConexion = miConexion;
 	}
 
 	public ClienteDAO(String name) {
 		super(name);
-		this.miConexion = miConexion;
 	}
 
 	public ClienteDAO(Cliente c) {

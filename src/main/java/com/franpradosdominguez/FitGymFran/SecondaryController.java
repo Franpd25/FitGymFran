@@ -29,7 +29,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
@@ -37,7 +36,6 @@ import javafx.stage.WindowEvent;
 public class SecondaryController {
 	
 	private Cliente c = new Cliente();
-	private Rutina r = new Rutina();
 	private ClienteDAO cdao = new ClienteDAO();
 	private RutinaDAO rdao = new RutinaDAO();
 
@@ -66,6 +64,14 @@ public class SecondaryController {
 	@FXML
 	private Button salir;
 
+	/**
+	 * Este método se encarga de acceder a la vista anterior, en mi
+	 * caso, a la vista primaria.
+	 * @param event
+	 * @throws IOException: controla la excepción de la ruta que nos
+	 * dirijimos
+	 */
+	@SuppressWarnings("exports")
 	@FXML
 	public void switchToPrimary(ActionEvent event) throws IOException {
 
@@ -93,12 +99,21 @@ public class SecondaryController {
 		});
 	}
 
+	/**
+	 * Este método se encarga de salir de App, con un 
+	 * mensaje de confirmación.
+	 */
 	@FXML
 	public void go_out() {
 		Dialog.showConfirm("Message", "¿Estás seguro de salir de la Aplicación?", "");
 		System.exit(0);
 	}
 
+	/**
+	 * Este método se encarga de iniciar los valores del propio
+	 * cliente seleccionado en los campos de la vista siguiente.
+	 * @param client: cliente que se le pasa seleccionado.
+	 */
 	protected void initAttributes(Cliente client) {
 		this.c = client;
 		this.id_cliente.setText(c.getIdCliente() + "");
@@ -108,6 +123,11 @@ public class SecondaryController {
 		this.initialize();
 	}
 	
+	/**
+	 * Este método se encarga de obtener los atributos en los
+	 * campos del cliente seleccionado. Controlamos si existe dicho
+	 * cliente para setearlos en los campos TextField.
+	 */
 	private void showClientByTextField() {
 		
 		int id = Integer.parseInt(id_cliente.getText());
@@ -123,7 +143,6 @@ public class SecondaryController {
 	protected void initialize() {
 		
 		rutinasClientes.getItems().clear();
-		
 		this.configuraTabla();
 		
 		List<Rutina> misRutinas = cdao.getAllRutineForClient(c);
@@ -153,15 +172,21 @@ public class SecondaryController {
 		});
 	}
 	
+	/**
+	 * Este método se encarga de acceder a la vista de todas las
+	 * rutinas para poder añadirle una rutina al cliente seleccionado.
+	 * @throws Exception: controla la excepción de la ruta a la que
+	 * nos dirijimos.
+	 */
 	@FXML
-	private void newAddRoutine() {
+	private void newAddRoutine() throws Exception {
 
 		try {
 			this.initAttributes(c);
 			
 			FXMLLoader loader1 = new FXMLLoader(getClass().getResource("showRoutines.fxml"));
 			Parent r = loader1.load();
-			showRoutinesController src = loader1.getController();
+			ShowRoutinesController src = loader1.getController();
 			src.initAttributes(c);
 			
 			Scene scene = new Scene(r, 600, 400);
@@ -188,6 +213,9 @@ public class SecondaryController {
 		stage.close();
 	}
 	
+	/**
+	 * Este método se encarga de eliminar una rutina del cliente seleccionado.
+	 */
 	@FXML
 	private void deleteRoutine() {
 		Rutina r = this.rutinasClientes.getSelectionModel().getSelectedItem();

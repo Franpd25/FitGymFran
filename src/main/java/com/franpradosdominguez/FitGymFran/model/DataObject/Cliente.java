@@ -97,7 +97,5 @@ public class Cliente {
 			   "DNI = " + dni + "\n" +
 			   "Teléfono = " + phone + "\n" +
 			   "Lista de mi Rutina = " + misRutinas;
-	}
-	
-	
+	}	
 }

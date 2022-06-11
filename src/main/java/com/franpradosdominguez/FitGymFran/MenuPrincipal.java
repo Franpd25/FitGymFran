@@ -16,6 +16,14 @@ public class MenuPrincipal {
 	@FXML
 	private Button routine;
 	
+	/**
+	 * Este se encarga de dirigirse a la vista de los clientes mediante 
+	 * el botón CLIENTES.
+	 * @param event
+	 * @throws Exception: controla la excepción de la ruta a la que 
+	 * se dirije.
+	 */
+	@SuppressWarnings("exports")
 	@FXML
 	public void switchToButtonClients(ActionEvent event) throws Exception {
 		((Node) (event.getSource())).getScene().getWindow().hide();
@@ -27,10 +35,18 @@ public class MenuPrincipal {
 		newStage.show();
 	}
 	
+	/**
+	 * Este se encarga de dirigirse a la vista de las rutinas mediante 
+	 * el botón RUTINAS.
+	 * @param event
+	 * @throws Exception: controla la excepción de la ruta a la que 
+	 * se dirije.
+	 */
+	@SuppressWarnings("exports")
 	@FXML
 	public void switchToButtonRoutine(ActionEvent event) throws Exception {
 		((Node) (event.getSource())).getScene().getWindow().hide();
-		Parent root = FXMLLoader.load(getClass().getResource("ButtonRoutine.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("routineview.fxml"));
 		Scene scene = new Scene(root, 600, 400);
 		Stage newStage = new Stage();
 		newStage.setScene(scene);
