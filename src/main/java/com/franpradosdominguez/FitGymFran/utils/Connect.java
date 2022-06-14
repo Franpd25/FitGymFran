@@ -42,7 +42,7 @@ public class Connect {
 		try {
 			contexto = JAXBContext.newInstance(DatosConexion.class);
 			Unmarshaller m = contexto.createUnmarshaller();
-			DatosConexion newR = (DatosConexion) m.unmarshal(Connect.class.getResource("/com/franpradosdominguez/BBDD/conexion.xml"));
+			DatosConexion newR = (DatosConexion) m.unmarshal(new File(file));
 			datosCon = newR;
 			
 		} catch (JAXBException e) {
