@@ -3,6 +3,7 @@ package com.franpradosdominguez.FitGymFran;
 import java.io.IOException;
 import java.util.List;
 
+import com.franpradosdominguez.FitGymFran.model.DAO.ClienteDAO;
 import com.franpradosdominguez.FitGymFran.model.DAO.RutinaDAO;
 import com.franpradosdominguez.FitGymFran.model.DataObject.Cliente;
 import com.franpradosdominguez.FitGymFran.model.DataObject.Rutina;
@@ -32,6 +33,7 @@ public class ShowRoutinesController {
 
 	private Cliente c = new Cliente();
 	private List<Rutina> todasMisRutinas;
+	private ClienteDAO cdao = new ClienteDAO();
 	private RutinaDAO rdao = new RutinaDAO();
 
 	@FXML
@@ -42,23 +44,23 @@ public class ShowRoutinesController {
 	private TableColumn<Rutina, String> nameR;
 	@FXML
 	private TableColumn<Rutina, String> desc;
-	
+
 	@FXML
 	private Button btadd;
 	@FXML
 	private Button back;
 
 	/**
-	 * Este método se encarga de cambiarnos de vista, que en este caso
-	 * nos dirigimos a la vista secundaria.
+	 * Este método se encarga de cambiarnos de vista, que en este caso nos dirigimos
+	 * a la vista secundaria.
+	 * 
 	 * @param event
-	 * @throws IOException: controla la excepción de la ruta a la que
-	 * nos dirijimos.
+	 * @throws IOException: controla la excepción de la ruta a la que nos dirijimos.
 	 */
 	@SuppressWarnings("exports")
 	@FXML
 	public void switchToSecundary(ActionEvent event) throws IOException {
-		
+
 		Object eventSource = event.getSource();
 		Node node = (Node) eventSource;
 		Scene oldScene = node.getScene();
@@ -85,10 +87,11 @@ public class ShowRoutinesController {
 			}
 		});
 	}
-	
+
 	/**
-	 * Este método se encarga de iniciar los valores del propio
-	 * cliente seleccionado en los campos de la vista anterior.
+	 * Este método se encarga de iniciar los valores del propio cliente seleccionado
+	 * en los campos de la vista anterior.
+	 * 
 	 * @param client: cliente que se le pasa seleccionado.
 	 */
 	protected void initAttributes(Cliente client) {
@@ -125,24 +128,24 @@ public class ShowRoutinesController {
 	}
 
 	/**
-	 * Este método se encarga de añadir una rutina al cliente que 
-	 * previamente hayamos seleccionado en la vista anterior (Vista Secundaria).
-	 * @throws Exception: controla la excepción de la ruta a la
-	 * que nos dirijimos.
+	 * Este método se encarga de añadir una rutina al cliente que previamente
+	 * hayamos seleccionado en la vista anterior (Vista Secundaria).
+	 * 
+	 * @throws Exception: controla la excepción de la ruta a la que nos dirijimos.
 	 */
 	@FXML
 	private void addRoutineByClient() throws Exception {
-		
+
 		Rutina rutina = this.rutinas.getSelectionModel().getSelectedItem();
 
 		if (rutina == null) {
 			Dialog.showError("Message", "Selecciona una rutina",
 					"Seleccionando una rutina podrás asignarsela al cliente");
 
-		}else {
-			
+		} else {
+
 			try {
-				
+
 				FXMLLoader loader1 = new FXMLLoader(getClass().getResource("secondary.fxml"));
 				Parent r = loader1.load();
 				SecondaryController sc = loader1.getController();
@@ -153,13 +156,9 @@ public class ShowRoutinesController {
 				newStage.setScene(scene);
 				newStage.setTitle("Sala");
 				newStage.show();
-				
-				if (rutina != null) {
-					this.rdao.addRoutineForClient(c, rutina);
-					Dialog.showConfirm("Message", "Rutina añadida correctamente",
-							"Has añadido la rutina correctamente al cliente seleccionado");
-				}
 
+				this.cdao.addRoutineForClient(c, rutina);
+				
 				newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
 					@Override
@@ -168,7 +167,7 @@ public class ShowRoutinesController {
 						Platform.exit();
 					}
 				});
-				
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

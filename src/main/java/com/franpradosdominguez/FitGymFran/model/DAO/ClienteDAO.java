@@ -75,6 +75,33 @@ public class ClienteDAO extends Cliente implements InterfaceDAO<Cliente, Integer
 		}
 		return addC;
 	}
+	
+	/**
+	 * Este método se encarga de añadir una rutina para el cliente que
+	 * se ha seleccionado y lo añade en la tabla de en media de la BBDD.
+	 * @param c: el cliente seleccionado.
+	 * @param r: la rutina a insertar.
+	 * @return true si la rutina se ha insertado y false si no se ha insertado correctamente
+	 * a dicho cliente.
+	 */
+	public boolean addRoutineForClient(Cliente c, Rutina r) {
+		boolean insert = false;
+		String consulta = "INSERT INTO cliente_rutina (id_cliente, id_rutina) VALUES (?, ?)";
+		
+		try {
+			PreparedStatement ps = miConexion.prepareStatement(consulta);
+			ps.setInt(1, c.getIdCliente());
+			ps.setInt(2, r.getIdRutina());
+			ps.executeUpdate();
+			insert = true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return insert;
+	}
 
 	/**
 	 * Este método obtiene al cliente por su id
@@ -222,6 +249,31 @@ public class ClienteDAO extends Cliente implements InterfaceDAO<Cliente, Integer
 			e.printStackTrace();
 		}
 		return d;
+	}
+	
+	/**
+	 * Este método se encarga de eliminar una rutina del cliente de la
+	 * tabla de en medio, que se haya seleccionado en la vista primaria.
+	 * @param c: clienete seleccionado.
+	 * @param r: rutina seleccionada del cliente.
+	 * @return -1 si no existe.
+	 */
+	public int deleteRoutineForClient(Cliente c, Rutina r) {
+		int delR = -1;
+		String consulta = "DELETE FROM cliente_rutina WHERE cliente_rutina.id_cliente = ? AND cliente_rutina.id_rutina = ?";
+		
+		try {
+			PreparedStatement ps = miConexion.prepareStatement(consulta);
+			ps.setInt(1, c.getIdCliente());
+			ps.setInt(2, r.getIdRutina());
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return delR;
 	}
 
 }

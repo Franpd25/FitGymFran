@@ -64,4 +64,31 @@ public class Rutina {
 				"Nombre de la Rutina = " + nombreRutina + ", descripcion = " + descripcion
 				+ "Lista del Clienten = " + misClientes;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nombreRutina == null) ? 0 : nombreRutina.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Rutina other = (Rutina) obj;
+		if (nombreRutina == null) {
+			if (other.nombreRutina != null)
+				return false;
+		} else if (!nombreRutina.equals(other.nombreRutina))
+			return false;
+		return true;
+	}
+	
+	
 }

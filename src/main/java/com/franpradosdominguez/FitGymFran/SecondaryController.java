@@ -225,7 +225,7 @@ public class SecondaryController {
 			
 		}else {
 			Dialog.showConfirm("Message", "¿Estas seguro de querer borrar esta rutina?", "");
-			this.rdao.delete(r);
+			cdao.deleteRoutineForClient(c, r);
 			rutinasClientes.refresh();
 		}
 	}
